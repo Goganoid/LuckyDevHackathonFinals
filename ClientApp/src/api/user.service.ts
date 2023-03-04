@@ -6,7 +6,8 @@ export interface UserInformation{
         id: number,
         firstName: string,
         lastName: string,
-        email: string
+        email: string,
+        skillTags: []
 }
 
 // Service that handles all requests connected with user actions
@@ -35,8 +36,8 @@ class UserService extends BaseService {
         }
     }
 
-    public async GetUserInfo(): Promise<AxiosResponse<UserInformation>>{
-        const url = `info/`;
+    public async GetUserInfo(userId: string): Promise<AxiosResponse<UserInformation>>{
+        const url = `${userId}`;
         const data = await this.$http.get<UserInformation>(url);
         return data;
     }
