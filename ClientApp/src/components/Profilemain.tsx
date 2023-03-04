@@ -2,22 +2,8 @@ import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { UserApi } from '../api/user.service'
 import { useEffect, useState } from 'react';
 import { Badge } from 'reactstrap';
+import { UserInformation } from '../api/user.service';
 
-interface UserProfile {
-    id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    skillTags: Tag[],
-    about: string,
-    englishLevel: number,
-    cvLink: string,
-}
-
-interface Tag {
-    id: number,
-    label: string,
-}
 
 enum LanguageLevel
 {
@@ -30,7 +16,7 @@ enum LanguageLevel
 }
 
 export default function Profilemain() {
-    const [userData, setUserProfile] = useState<UserProfile>();
+    const [userData, setUserProfile] = useState<UserInformation>();
 
     useEffect(() => {
         Promise.all([UserApi.GetUserInfo('1')]).then(responses => {
