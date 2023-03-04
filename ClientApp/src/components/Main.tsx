@@ -49,7 +49,6 @@ const Buttons = styled.div`
         max-width: 400px;
     }
 `;
-
 const Main = () => {
     return (
         <MainLayout>

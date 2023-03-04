@@ -11,13 +11,16 @@ const BrandContent = styled.div`
 `;
 
 const StyledFooter = styled.footer`
-  color: #fff;
+  position: relative;
   width: 100%;
   display: block;
   font-size: 1rem;
   padding: 1.5rem 1.75rem;
+  margin-top: 20px;
+
   background-color: #8639E8;
-  position: relative;
+  color: #fff;
+
   @media all and (max-width: 769px) {
     font-size: 1rem;
   }

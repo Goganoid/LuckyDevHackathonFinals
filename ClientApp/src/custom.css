@@ -3,6 +3,15 @@ a {
   color: #0366d6;
 }
 
+.btn {
+  background-color: #8639E8 !important;
+}
+.btn:is(:hover, :focus) {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -13,7 +22,7 @@ code {
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #8639E8 !important;
   border-color: #1861ac;
 }
 
@@ -31,7 +40,7 @@ code {
   background: #8639E8;
   user-select: none;
 }
-.dark-header a:where(:hover, :visited, :link, :active) {
+.dark-header a:is(:hover, :visited, :link, :active) {
   color: #ffffff !important;
 }
 
@@ -39,6 +48,27 @@ code {
   background: #ffffff;
   user-select: none;
 }
-.light-header a:where(:hover, :visited, :link, :active) {
+.light-header a:is(:hover, :visited, :link, :active) {
   color: #000000 !important;
+}
+
+.vacancy-list {
+  margin: 30px 0;
+}
+.vacancy-list > h5 {
+  margin: 0 10%;
+}
+.vacancy-list > .row {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  margin: 15px 0;
+  flex-wrap: nowrap;
+  flex-direction: row !important;
+}
+.vacancy-list > .row > .btn {
+  width: 120px !important;
+  height: 40px;
+}
+.vacancy-list > .row > * {
+  flex-shrink: 1;
 }

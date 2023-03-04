@@ -1,9 +1,9 @@
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react';
-import { Footer, DarkHeader, Registermain } from '../components';
+import { Footer, LightHeader as Header, Registermain } from '../components';
 
 const Register: FunctionComponent<PropsWithChildren> = () => (
   <Fragment>
-    <DarkHeader />
+    <Header />
     <Registermain />
     <Footer />
   </Fragment>
