@@ -87,7 +87,6 @@ public class CompanyAuthController : ControllerBase
     {
         try
         {
-            Console.WriteLine(string.IsNullOrEmpty(requestDTO.Password.Trim()));
             if (string.IsNullOrEmpty(requestDTO.Password.Trim()))
                 throw new Exception("Password is required");
             if (string.IsNullOrWhiteSpace(requestDTO.Email))
