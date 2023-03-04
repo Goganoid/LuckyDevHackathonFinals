@@ -36,6 +36,19 @@ class AuthService extends BaseService {
         });
         return data;
     }
+    public async CompanyLogin(email: string, password: string): Promise<AxiosResponse<LoginResponse>> {
+        const url = `company/login`;
+        const request = {
+            email,
+            password
+        }
+        const data  = await this.$http.post<LoginResponse>(url,JSON.stringify(request), {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        return data;
+    }
     public async Register(firstName:string,lastName:string,email: string, password: string): Promise<AxiosResponse<any>> {
         const url = `user/register`;
         const request = {
@@ -58,6 +71,7 @@ class AuthService extends BaseService {
             email,
             password
         }
+        console.log(request);
         const data  = await this.$http.post(url,JSON.stringify(request), {
             headers: {
                 'Content-Type': 'application/json',
