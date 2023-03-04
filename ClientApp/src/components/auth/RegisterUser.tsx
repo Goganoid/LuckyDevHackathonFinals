@@ -44,7 +44,7 @@ export default function RegisterUser() {
       AuthApi.Register(name1, name2, email, password1).then(response => {
         if (response.status === 200) {
           AuthApi.Login(email, password1).then(res => {
-            setUserData(res.data.token, res.data.id);
+            setUserData(res.data.token, res.data.id,'user');
             window.location.href = "/";
           })
         }
