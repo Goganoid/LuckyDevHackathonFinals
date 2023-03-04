@@ -3,7 +3,7 @@ import { UserApi } from '../api/user.service'
 import { useEffect, useState } from 'react';
 import { Badge } from 'reactstrap';
 import { UserInformation } from '../api/user.service';
-import { getUserId } from '../utils/storage';
+import { useParams } from 'react-router-dom';
 
 
 enum LanguageLevel
@@ -18,11 +18,11 @@ enum LanguageLevel
 
 export default function Profilemain() {
     const [userData, setUserProfile] = useState<UserInformation>();
-    const user = `${getUserId()}`
+    const { id } = useParams();
     
 
     useEffect(() => {
-        Promise.all([UserApi.GetUserInfo(user)]).then(responses => {
+        Promise.all([UserApi.GetUserInfo(`${id}`)]).then(responses => {
             const [UserInfoResponse] = responses;
             setUserProfile({
                 id: UserInfoResponse.data.id,

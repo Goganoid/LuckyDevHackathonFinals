@@ -34,7 +34,7 @@ const AppRoutes = [
     element: <LogoutPage />
   },
   {
-    path: '/profile',
+    path: '/profile/:id',
     index: true,
     element: <Profile />
   },

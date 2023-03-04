@@ -14,7 +14,7 @@ export default function UserList() {
     }, [])
 
     const listItems = users?.map((user: UserInformation, idx: number) => {
-        return <UserCard key={idx} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
+        return <UserCard key={idx} id={idx+1} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
     }
     );
 
