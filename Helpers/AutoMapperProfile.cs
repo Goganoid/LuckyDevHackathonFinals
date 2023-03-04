@@ -24,5 +24,6 @@ public class AutoMapperProfile : Profile
         CreateMap<Vacancy, VacancyDTO>();
         CreateMap<CreateVacancyDTO,Vacancy>();
         CreateMap<CreateProjectRequestDTO, Project>();
+        CreateMap<CreateReviewDTO, CompanyReview>();
     }
 }
