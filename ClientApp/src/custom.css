@@ -1,4 +1,15 @@
 /* Provide sufficient contrast against white background */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: none !important;
+}
+::-webkit-scrollbar-thumb {
+  background: #8639E8;
+  border-radius: 5px;
+}
+
 a {
   color: #0366d6;
 }
@@ -59,14 +70,17 @@ code {
 .vacancy-list > .row > .btn {
   width: 120px !important;
   height: 40px;
-  background-color: #8639E8 !important;
-
-}
-.vacancy-list > .row > .btn:is(:hover, :focus) {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-color: #000000 !important;
 }
 .vacancy-list > .row > * {
   flex-shrink: 1;
+}
+
+.purple-btn {
+  background-color: #8639E8 !important;
+  color: #FFFFFF !important;
+}
+.purple-btn:is(:hover, :focus) {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
 }

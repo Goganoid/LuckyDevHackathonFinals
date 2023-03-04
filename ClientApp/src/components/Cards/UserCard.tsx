@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 
 const CardWrapper = styled.div`
-    width: 970px;
-    height: 230px;
+    width: 100%;
+    height: auto;
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
-    background-color: #D9D9D9;
-    border-radius: 10px;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
 `;
 
 const TextWrapper = styled.div`
     max-width: 50%;
+
+    > h6 {
+      color: gray;
+    }
 `;
 
 const MoreButton = styled.button`
@@ -34,9 +38,9 @@ const UserCard = ({name, skills}: IUserCard): JSX.Element => {
     <CardWrapper>
       <TextWrapper>
           <h3>{name}</h3>
-          <h4>{userSkills}</h4>
+          <h6>{userSkills}</h6>
       </TextWrapper>
-      <MoreButton>More</MoreButton>
+      <MoreButton className="purple-btn">More</MoreButton>
     </CardWrapper>
   );
 }
