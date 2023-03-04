@@ -1,11 +1,10 @@
-import AuthWrapper from "./pages/AuthWrapper";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import LogoutPage from "./pages/Logout";
-import Redirect from "./pages/Redirect";
 import RegisterAsCompany from "./pages/RegisterCompany";
 import RegisterAsUser from "./pages/RegisterUser";
 import Profile from "./pages/Profile";
+import RedirectPage from "./pages/Redirect";
 
 const AppRoutes = [
   {
@@ -26,7 +25,7 @@ const AppRoutes = [
   },
   {
     path: '/redirect',
-    element: <Redirect />
+    element: <RedirectPage />
   },
   {
     path: '/logout',
