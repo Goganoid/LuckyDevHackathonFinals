@@ -7,12 +7,19 @@ const expand = 'lg';
 
 interface Props {
   className?: string;
+  link: any;
 }
 
-const HeaderNavbar: React.FC<Props> = () => {
+const Logo = styled.img`
+  width: 16px;
+  height: 24px;
+  transform: translate(2px, -3px);
+`;
+
+const HeaderNavbar: React.FC<Props> = ({link}) => {
   return (
       <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-      <NavbarBrand tag={Link} to="/">LuckyDevFinals</NavbarBrand>
+      <NavbarBrand tag={Link} to="/"><Logo src={link} alt='L' />uckyDevFinals</NavbarBrand>
       <NavbarToggler className="mr-2" />
       <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
         <ul className="navbar-nav flex-grow">
@@ -46,7 +53,7 @@ const HeaderNavbar: React.FC<Props> = () => {
 export const DarkHeader = () => {
   return (
     <header className='dark-header'>
-        <HeaderNavbar />
+        <HeaderNavbar link={require('../assets/logo-light.png')} />
     </header>
   )
 };
@@ -54,7 +61,7 @@ export const DarkHeader = () => {
 export const LightHeader = () => {
   return (
     <header className='light-header'>
-        <HeaderNavbar />
+        <HeaderNavbar link={require('../assets/logo-dark.png')} />
     </header>
   )
 };
