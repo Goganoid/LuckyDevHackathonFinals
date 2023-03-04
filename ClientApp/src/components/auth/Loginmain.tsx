@@ -22,6 +22,7 @@ export default function Loginmain() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     toast.info("Sending request...", successToastOptions);
+    console.log(isCompany);
     let loginAction = isCompany ? AuthApi.CompanyLogin(email, password) : AuthApi.Login(email, password);
     loginAction.then(response => {
       setUserData(response.data.token, response.data.id,isCompany? 'company' : 'user');

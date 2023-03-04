@@ -9,7 +9,7 @@ public class CompanyResponseDTO
     public required string Email { get; set; }
     
     public required string About { get; set; }
-    
+    public string Name { get; set; }
     public List<ProjectDTO> Projects { get; set; }
     public List<CompanyReviewDTO> Reviews { get; set; }
 }
