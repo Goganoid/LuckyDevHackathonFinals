@@ -5,6 +5,7 @@ import LogoutPage from "./pages/Logout";
 import Redirect from "./pages/Redirect";
 import RegisterAsCompany from "./pages/RegisterCompany";
 import RegisterAsUser from "./pages/RegisterUser";
+import Profile from "./pages/Profile";
 
 const AppRoutes = [
   {
@@ -30,6 +31,11 @@ const AppRoutes = [
   {
     path: '/logout',
     element: <LogoutPage />
+  },
+  {
+    path: '/profile',
+    index: true,
+    element: <Profile />
   }
 ];
 
