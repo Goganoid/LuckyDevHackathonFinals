@@ -25,9 +25,9 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> GetCompanyInfo(int id)
     {
         var company = await _context.Companies
-            .Include(u=>u.Projects)
-                .ThenInclude(p=>p.Vacancies)
-                    .ThenInclude(v=>v.Tags)
+            .Include(u=>u.Projects).ThenInclude(p=>p.Vacancies).ThenInclude(v=>v.Tags)
+            .Include(u=>u.Projects).ThenInclude(p=>p.Vacancies).ThenInclude(v=>v.Candidates).ThenInclude(c=>c.SkillTags)
+            .Include(u=>u.Projects).ThenInclude(p=>p.Vacancies).ThenInclude(v=>v.AcceptedCandidate)
             .Include(u=>u.Reviews)
             .FirstOrDefaultAsync(u => u.Id == id);
         if (company == null) return NotFound("Company not found");

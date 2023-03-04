@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LuckyDevFinals.Controllers;
 
+
+
+
 [ApiController]
 [Route("[controller]")]
 public class UsersController : ControllerBase
@@ -65,7 +68,10 @@ public class UsersController : ControllerBase
         {
             if (user == null) return NotFound("user not found");
             if (vacancy.Candidates.Contains(user)) return Conflict("You have already applied");
+            var vacancies = _context.Vacancies.Include(v => v.Candidates);
+            _context.Attach(user);
             vacancy.Candidates.Add(user);
+            _context.Vacancies.Update(vacancy);
             _context.SaveChanges();
             return Ok();
         }
@@ -89,7 +95,30 @@ public class UsersController : ControllerBase
         var invites = user.Invites.Select(i => _mapper.Map<InviteDTO>(i));
         return Ok(invites);
     }
-
+    [Authorize]
+    [HttpGet("applications")]
+    public async Task<IActionResult> GetApplications()
+    {
+        var id = AuthController.GetUserId(HttpContext.User.Identity as ClaimsIdentity);
+        if (id == null) return Unauthorized("Unauthorized");
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Id == id);
+        if (user == null) return NotFound("User not found");
+        var vacancies = _context.Vacancies
+            .Include(v => v.Candidates);
+        var applications = _context.Vacancies
+            .Include(v => v.Candidates)
+            .Include(v => v.AcceptedCandidate)
+            .Where(v=>v.Candidates.Contains(user))
+            .Select(v=> new
+            {
+                Id = v.Id,
+                Name = v.Name,
+                Status = v.AcceptedCandidate==null ? InviteStatus.Unresponded : v.AcceptedCandidate==user ? InviteStatus.Accepted : InviteStatus.Declined
+            });
+        
+        return Ok(applications);
+    }
     [Authorize]
     [HttpPut("invites/accept/{inviteId:int}")]
     public async Task<IActionResult> AcceptInvite(int inviteId)
