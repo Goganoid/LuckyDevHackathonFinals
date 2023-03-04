@@ -45,7 +45,7 @@ export default function Loginmain() {
           <Button onClick={handleSubmit}
             disabled={[email,password].some(value=>value.trim().length===0)}
             className='mb-4 w-100 Auth-Button' size='lg' variant='primary'>Sign in</Button>
-          <h6 className="text-uppercase text-center mb-5">Don't have an account? <Link to="/register">register</Link></h6>
+          <h6 className="text-uppercase text-center mb-5">Don't have an account? <Link to="/redirect">register</Link></h6>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>
