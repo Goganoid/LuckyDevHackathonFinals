@@ -29,4 +29,21 @@ public class UsersController : ControllerBase
         var userDTO = _mapper.Map<UserResponseDTO>(user);
         return Ok(userDTO);
     }
+    [HttpGet("")]
+    public async Task<IActionResult> GetAllUsers([FromQuery] string? tagQuery)
+    {
+        var usersQuery = _context.Users
+            .Include(u=>u.SkillTags).AsQueryable();
+        if (tagQuery != null)
+        {
+            var tags = tagQuery.Split(',');
+            usersQuery = usersQuery.Where(u => 
+                u.SkillTags
+                    .Any(t => 
+                        tags.Any(tag=>tag==t.Label)));
+        }
+
+        var result = usersQuery.Select(p => _mapper.Map<UserResponseDTO>(p));
+        return Ok(result);
+    }
 }
