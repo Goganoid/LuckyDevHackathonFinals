@@ -1,12 +1,7 @@
 import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
-import { UserApi } from '../api/user.service'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Badge } from 'reactstrap';
 import { UserInformation } from '../api/user.service';
-import { useParams } from 'react-router-dom';
-import { getUserId } from '../utils/storage';
-import { MoreButton } from './Cards/UserCard';
-import { Link } from 'react-router-dom';
 
 
 enum LanguageLevel
@@ -19,36 +14,14 @@ enum LanguageLevel
     Advanced
 }
 
-export default function Profilemain() {
+export default function EditProfilemain() {
     const [userData, setUserProfile] = useState<UserInformation>();
-    const { id } = useParams();
-    
-
-    useEffect(() => {
-        Promise.all([UserApi.GetUserInfo(`${id}`)]).then(responses => {
-            const [UserInfoResponse] = responses;
-            setUserProfile({
-                id: UserInfoResponse.data.id,
-                firstName: UserInfoResponse.data.firstName,
-                lastName: UserInfoResponse.data.lastName,
-                email: UserInfoResponse.data.email,
-                skillTags: UserInfoResponse.data.skillTags,
-                about: UserInfoResponse.data.about,
-                englishLevel: UserInfoResponse.data.englishLevel,
-                cvLink: UserInfoResponse.data.cvLink
-            })
-        })
-    }, [])
 
     return (
     <MDBContainer fluid className='align-items-center justify-content-center w-75'>
         <MDBCard className='MDBCard p-4 m-3'>
             <MDBCardBody>
                 <h1 className='display-3 d-inline'>{`${userData?.firstName} ${userData?.lastName}`}</h1>
-                {
-                    id == getUserId() ? 
-                    <Link to='/edit-profile'><MoreButton className="purple-btn mx-3">Edit</MoreButton></Link> : <></>
-                }
                 <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>
                 <hr className='my-5' />
                 <h3 className='display-4 m-3'>About me:</h3>

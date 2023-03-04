@@ -6,8 +6,8 @@ import RegisterAsUser from "./pages/RegisterUser";
 import Profile from "./pages/Profile";
 import RedirectPage from "./pages/Redirect";
 import UsersPage from "./pages/UsersPage";
-import Project from "./pages/Project";
 import ProjectsPage from "./pages/ProjectsPage";
+import EditProfile from "./pages/EditProfile";
 import CreateProject from "./pages/CreateProject";
 
 const AppRoutes = [
@@ -39,6 +39,11 @@ const AppRoutes = [
     path: '/profile/:id',
     index: true,
     element: <Profile />
+  },
+  {
+    path: '/edit-profile',
+    index: true,
+    element: <EditProfile />
   },
   {
     path: '/users',
