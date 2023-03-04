@@ -14,7 +14,7 @@ const ImgWrapper = styled.img`
     }
 `;
 
-export default function Logoutmain() {
+function Logoutmain() {
     const returnHome = () => {
         window.location.href='/';
     };
@@ -39,3 +39,5 @@ export default function Logoutmain() {
         </MDBContainer>
     )
 };
+
+export default Logoutmain;

@@ -1,8 +1,11 @@
-import { type FunctionComponent, type PropsWithChildren } from 'react';
-import { Redirect } from '../components';
+import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react';
+import { Redirect, LightHeader as Header } from '../components';
 
 const RedirectPage: FunctionComponent<PropsWithChildren> = () => (
-  <Redirect />
+  <Fragment>
+    <Header />
+    <Redirect />
+  </Fragment>
 );
 
 export default RedirectPage;

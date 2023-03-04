@@ -1,11 +1,11 @@
-import { MDBCard, MDBCardBody, MDBContainer, MDBInput } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default function Redirect() {
 
   return (
-    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
+    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image mt-3'>
       <div className='mask gradient-custom-3'></div>
       <MDBCard className='MDBCard'>
         <MDBCardBody className='px-5'>
