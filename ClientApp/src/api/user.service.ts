@@ -13,7 +13,7 @@ export interface UserInformation {
     cvLink: string,
 }
 
-interface Tag {
+export interface Tag {
     id: number,
     label: string,
 }
