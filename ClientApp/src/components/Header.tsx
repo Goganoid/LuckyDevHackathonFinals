@@ -44,6 +44,9 @@ const HeaderNavbar: React.FC<Props> = ({link}) => {
           <NavItem>
             <NavLink tag={Link} to="/login">Login</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to="/logout">Logout</NavLink>
+          </NavItem>
         </ul>
       </Collapse>
     </Navbar>
