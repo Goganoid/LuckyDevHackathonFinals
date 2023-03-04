@@ -1,4 +1,3 @@
-import type { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 const CardWrapper = styled.div`
@@ -24,14 +23,22 @@ const MoreButton = styled.button`
     border: 1px solid #000;
 `;
 
-const UserCard: FunctionComponent = () => (
-  <CardWrapper>
-    <TextWrapper>
-        <h3>Name</h3>
-        <h4>Skills</h4>
-    </TextWrapper>
-    <MoreButton>More</MoreButton>
-  </CardWrapper>
-);
+interface IUserCard {
+  name: string,
+  skills: string[],
+}
+
+const UserCard = ({name, skills}: IUserCard): JSX.Element => {
+  const userSkills = skills.join(', ');
+  return (
+    <CardWrapper>
+      <TextWrapper>
+          <h3>{name}</h3>
+          <h4>{userSkills}</h4>
+      </TextWrapper>
+      <MoreButton>More</MoreButton>
+    </CardWrapper>
+  );
+}
 
 export default UserCard;

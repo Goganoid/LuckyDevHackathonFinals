@@ -49,6 +49,12 @@ class UserService extends BaseService {
         const data = await this.$http.get<UserInformation>(url);
         return data;
     }
+
+    public async GetUsers(): Promise<AxiosResponse<UserInformation[]>>{
+        const url = ``;
+        const data = await this.$http.get<UserInformation[]>(url);
+        return data;
+    }
 }
 
 export const UserApi = UserService.Instance;

@@ -5,6 +5,7 @@ import RegisterAsCompany from "./pages/RegisterCompany";
 import RegisterAsUser from "./pages/RegisterUser";
 import Profile from "./pages/Profile";
 import RedirectPage from "./pages/Redirect";
+import UsersPage from "./pages/UsersPage";
 import Project from "./pages/Project";
 
 const AppRoutes = [
@@ -36,7 +37,11 @@ const AppRoutes = [
     path: '/profile',
     index: true,
     element: <Profile />
-  }
+  },
+  {
+    path: '/users',
+    element: <UsersPage />
+  },
 ];
 
 export default AppRoutes;
