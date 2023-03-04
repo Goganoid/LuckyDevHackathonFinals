@@ -18,5 +18,6 @@ public class Project
     public DateTime PublicationDate { get; set; }
     public LanguageLevel EnglishLevel { get; set; }
     public List<Vacancy> Vacancies { get; set; }
+    public List<ProjectReview> Reviews { get; set; }
     
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Immutable;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -10,7 +11,6 @@ using LuckyDevFinals.Entities.DTO;
 using LuckyDevFinals.Entities.DTO.User;
 using LuckyDevFinals.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -134,31 +134,29 @@ public class AuthController : ControllerBase
     {
         var id = AuthController.GetUserId(HttpContext.User.Identity as ClaimsIdentity);
         if (id == null) return Unauthorized("Unauthorized");
-        // map model to entity and set id
-        var userNew = _mapper.Map<User>(requestDTO);
-        userNew.Id = id.Value;
+      
         try
         {
-            var user = _context.Users.Find(userNew.Id);
+            var user = _context.Users.Find(id);
             if (user == null)
                 throw new Exception("User not found");
 
             // update email if it has changed
-            if (!string.IsNullOrWhiteSpace(userNew.Email) && userNew.Email != user.Email)
+            if (!string.IsNullOrWhiteSpace(requestDTO.Email) && requestDTO.Email != user.Email)
             {
                 // throw error if the new email is already taken
-                if (_context.Users.Any(x => x.Email == userNew.Email))
-                    throw new Exception("Username " + userNew.Email + " is already taken");
+                if (_context.Users.Any(x => x.Email == requestDTO.Email))
+                    throw new Exception("Username " + requestDTO.Email + " is already taken");
 
-                user.Email = userNew.Email;
+                user.Email = requestDTO.Email;
             }
 
             // update user properties if provided
-            if (!string.IsNullOrWhiteSpace(userNew.FirstName))
-                user.FirstName = userNew.FirstName;
+            if (!string.IsNullOrWhiteSpace(requestDTO.FirstName))
+                user.FirstName = requestDTO.FirstName;
 
-            if (!string.IsNullOrWhiteSpace(userNew.LastName))
-                user.LastName = userNew.LastName;
+            if (!string.IsNullOrWhiteSpace(requestDTO.LastName))
+                user.LastName = requestDTO.LastName;
 
             // update password if provided
             if (!string.IsNullOrWhiteSpace(requestDTO.Password))
@@ -169,6 +167,26 @@ public class AuthController : ControllerBase
                 user.PasswordSalt = passwordSalt;
             }
 
+            if (!string.IsNullOrWhiteSpace(requestDTO.About))
+            {
+                user.About = requestDTO.About;
+            }
+
+            if (requestDTO.EnglishLevel != null)
+            {
+                user.EnglishLevel = requestDTO.EnglishLevel.Value;
+            }
+
+            if (requestDTO.TagIds != null)
+            {
+                var newTags = requestDTO.TagIds.Select( id =>
+                {
+                    var tag = _context.Tags.Find(id);
+                    if (tag == null) throw new Exception($"Tag with given id {id} was not found");
+                    return tag;
+                }).ToList();
+                user.SkillTags = newTags;
+            }
             _context.Users.Update(user);
             _context.SaveChanges();
             return Ok();
