@@ -1,5 +1,6 @@
 using AutoMapper;
 using LuckyDevFinals.Entities;
+using LuckyDevFinals.Entities.DTO;
 using LuckyDevFinals.Entities.DTO.Company;
 using LuckyDevFinals.Entities.DTO.User;
 
@@ -12,7 +13,9 @@ public class AutoMapperProfile : Profile
         CreateMap<UserRegisterRequestDTO, User>();
         CreateMap<UserUpdateRequestDTO, User>();
         CreateMap<User, UserResponseDTO>();
-        
+
+
+        CreateMap<Tag, TagDTO>();
         CreateMap<CompanyRegisterRequestDTO, Company>();
         CreateMap<Company, CompanyResponseDTO>();
     }

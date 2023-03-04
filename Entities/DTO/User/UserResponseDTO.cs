@@ -13,4 +13,8 @@ public class UserResponseDTO
 
     /// <example>email@gmail.com</example>
     public required string Email { get; set; }
+    
+    public List<TagDTO> SkillTags { get; set; } = new();
+    // 0-5
+    public LanguageLevel EnglishLevel { get; set; }
 }
