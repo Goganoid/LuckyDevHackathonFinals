@@ -30,7 +30,6 @@ function Logoutmain() {
         <div className='mask gradient-custom-3'></div>
         <MDBCard className='MDBCard'>
             <MDBCardBody className='px-5'>
-            <ImgWrapper src={''} alt="logout picture" />
             <h3 className="text-uppercase text-center mb-5">Oh no! You are leaving... Are you sure?</h3>
             <Button onClick={returnHome} className='mb-4 w-100 Auth-Button' size='lg' variant='primary'>Naah, Just Kidding</Button>
             <Button onClick={logout} className='mb-4 w-100 Logout-Button' size='lg' variant='primary'>Yes, Log Me Out</Button>

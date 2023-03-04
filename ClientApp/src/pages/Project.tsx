@@ -1,6 +1,6 @@
 import { Container, Button, Row } from "reactstrap";
 import styled from "styled-components";
-import { LightHeader as Header } from "../components";
+import { Footer, LightHeader as Header } from '../components';
 
 export const Background = styled.div`
     position: fixed;
@@ -103,6 +103,7 @@ const Lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting 
 const Project = () => {
     return (
         <>
+        <Header />
             <Background />
             <Header />
             <Layout>
@@ -130,6 +131,7 @@ const Project = () => {
                     </Container>
                 </Info>
             </Layout>
+        <Footer />
         </>
     )
 };

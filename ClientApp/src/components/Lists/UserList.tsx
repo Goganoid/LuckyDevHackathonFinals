@@ -2,24 +2,10 @@ import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { UserApi } from '../../api/user.service'
 import { useEffect, useState } from 'react';
 import UserCard from '../Cards/UserCard';
-
-interface UserProfile {
-    id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    skillTags: ITag[],
-    about: string,
-    englishLevel: number,
-}
-
-interface ITag {
-    id: number,
-    label: string
-}
+import { UserInformation, Tag } from '../../api/user.service';
 
 export default function UserList() {
-    const [users, setUsers] = useState <UserProfile[]>([]);
+    const [users, setUsers] = useState <UserInformation[]>([]);
     useEffect(() => {
         Promise.all([UserApi.GetUsers()]).then(res => {
             const [UsersInfoResponse] = res;
@@ -27,8 +13,8 @@ export default function UserList() {
         });
     }, [])
 
-    const listItems = users?.map((user: UserProfile, idx: number) => {
-        return <UserCard key={idx} name={user.firstName} skills={user.skillTags.map((e: ITag) => e.label)} />
+    const listItems = users?.map((user: UserInformation, idx: number) => {
+        return <UserCard key={idx} id={idx+1} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
     }
     );
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const CardWrapper = styled.div`
     width: 100%;
@@ -28,11 +29,12 @@ const MoreButton = styled.button`
 `;
 
 interface IUserCard {
+  id: number,
   name: string,
   skills: string[],
 }
 
-const UserCard = ({name, skills}: IUserCard): JSX.Element => {
+const UserCard = ({id, name, skills}: IUserCard): JSX.Element => {
   const userSkills = skills.join(', ');
   return (
     <CardWrapper>
@@ -40,7 +42,7 @@ const UserCard = ({name, skills}: IUserCard): JSX.Element => {
           <h3>{name}</h3>
           <h6>{userSkills}</h6>
       </TextWrapper>
-      <MoreButton className="purple-btn">More</MoreButton>
+      <Link to={`/profile/${id}`}><MoreButton className="purple-btn">More</MoreButton></Link>
     </CardWrapper>
   );
 }

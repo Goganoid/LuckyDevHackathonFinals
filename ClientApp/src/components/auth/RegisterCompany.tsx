@@ -38,8 +38,8 @@ export default function RegisterCompany() {
     } else {
       AuthApi.RegisterCompany(name, email, password1).then(response => {
         if (response.status === 200) {
-          AuthApi.Login(email, password1).then(res => {
-            setUserData(res.data.token, res.data.id);
+          AuthApi.CompanyLogin(email, password1).then(res => {
+            setUserData(res.data.token, res.data.id,'company');
             window.location.href = "/";
           })
         }

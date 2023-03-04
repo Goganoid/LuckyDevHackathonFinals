@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import RedirectPage from "./pages/Redirect";
 import UsersPage from "./pages/UsersPage";
 import Project from "./pages/Project";
+import ProjectsPage from "./pages/ProjectsPage";
 import CreateProject from "./pages/CreateProject";
 
 const AppRoutes = [
@@ -35,7 +36,7 @@ const AppRoutes = [
     element: <LogoutPage />
   },
   {
-    path: '/profile',
+    path: '/profile/:id',
     index: true,
     element: <Profile />
   },
@@ -43,6 +44,15 @@ const AppRoutes = [
     path: '/users',
     element: <UsersPage />
   },
+  {
+    path: '/projects',
+    element: <ProjectsPage />
+  },
+  {
+    path: '/project/:id',
+    index: true,
+    element: <Project />
+  }
 ];
 
 export default AppRoutes;

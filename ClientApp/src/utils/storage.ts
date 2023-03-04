@@ -2,11 +2,14 @@
 
 
 
-export function setUserData(token:string, userId:number) {
+export function setUserData(token:string, userId:number, userType:'user'|'company') {
     localStorage.setItem('token', token);
     localStorage.setItem('userId', userId.toString());
+    localStorage.setItem('userType', userType);
 }
-
+export function isCompany() {
+    return localStorage.getItem('token') === 'company';
+}
 export function isLoggedIn() {
     return localStorage.getItem('token') != null;
 }

@@ -2,33 +2,24 @@ import { AxiosError, type AxiosResponse } from "axios";
 import { isLoggedIn, getToken } from "../utils/storage";
 import { BaseService } from "./base.service";
 
-export interface UserInformation {
+export interface ProjectInformation {
     id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    skillTags: Tag[],
-    about: string,
-    englishLevel: number,
-    cvLink: string,
-}
-
-export interface Tag {
-    id: number,
-    label: string,
+    description: string,
+    title: string,
+    englishLevel: number
 }
 
 // Service that handles all requests connected with user actions
-class UserService extends BaseService {
-    private static _sampleService: UserService;
-    private static _controller: string = 'Users';
+class ProjectService extends BaseService {
+    private static _sampleService: ProjectService;
+    private static _controller: string = 'Projects';
     private constructor(name: string) {
         super(name);
         if (isLoggedIn())
             this.$http.defaults.headers.common['Authorization'] = `bearer ${getToken()}`;
     }
 
-    public static get Instance(): UserService {
+    public static get Instance(): ProjectService {
         return this._sampleService || (this._sampleService = new this(this._controller));
     }
 
@@ -44,17 +35,17 @@ class UserService extends BaseService {
         }
     }
 
-    public async GetUserInfo(userId: string): Promise<AxiosResponse<UserInformation>>{
-        const url = `${userId}`;
-        const data = await this.$http.get<UserInformation>(url);
+    public async GetProjects(): Promise<AxiosResponse<ProjectInformation[]>>{
+        const url = ``;
+        const data = await this.$http.get<ProjectInformation[]>(url);
         return data;
     }
 
-    public async GetUsers(): Promise<AxiosResponse<UserInformation[]>>{
-        const url = ``;
-        const data = await this.$http.get<UserInformation[]>(url);
+    public async GetProject(projectId: string): Promise<AxiosResponse<ProjectInformation>>{
+        const url = `${projectId}`;
+        const data = await this.$http.get<ProjectInformation>(url);
         return data;
     }
 }
 
-export const UserApi = UserService.Instance;
+export const ProjectApi = ProjectService.Instance;
