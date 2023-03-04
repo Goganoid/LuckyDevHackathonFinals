@@ -24,11 +24,16 @@ const MoreButton = styled.button`
     border: 1px solid #000;
 `;
 
-const ProjectCard: FunctionComponent = () => (
+interface IprojectCard {
+  name: string,
+  description: string
+}
+
+const ProjectCard = ({name, description}: IprojectCard): JSX.Element  => (
   <CardWrapper>
     <TextWrapper>
-        <h3>Project</h3>
-        <h4>Description (30words)...</h4>
+        <h3>{name}</h3>
+        <h4>{description}</h4>
     </TextWrapper>
     <MoreButton>More</MoreButton>
   </CardWrapper>
