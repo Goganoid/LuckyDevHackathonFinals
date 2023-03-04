@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import RedirectPage from "./pages/Redirect";
 import UsersPage from "./pages/UsersPage";
 import Project from "./pages/Project";
+import ProjectsPage from "./pages/ProjectsPage";
 
 const AppRoutes = [
   {
@@ -41,6 +42,10 @@ const AppRoutes = [
   {
     path: '/users',
     element: <UsersPage />
+  },
+  {
+    path: '/projects',
+    element: <ProjectsPage />
   },
 ];
 
