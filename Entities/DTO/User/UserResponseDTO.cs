@@ -19,4 +19,5 @@ public class UserResponseDTO
     public string About { get; set; }
     // 0-5
     public LanguageLevel EnglishLevel { get; set; }
+    public string CvLink { get; set; } = "";
 }
