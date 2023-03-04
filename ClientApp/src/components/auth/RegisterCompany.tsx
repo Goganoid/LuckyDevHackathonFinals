@@ -8,19 +8,14 @@ import { AuthApi } from '../../api/auth.service';
 import {errorToastOptions, successToastOptions } from '../../config/toastify.config';
 import { setUserData } from '../../utils/storage';
 
-export default function Registermain() {
-  const [name1, setFirstName] = useState('');
-  const [name2, setSecondName] = useState('');
+export default function RegisterCompany() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const handleFirstName = (e: any) => {
-    setFirstName(e.target.value);
-  };
-
-  const handleSecondName = (e: any) => {
-    setSecondName(e.target.value);
+  const handleName = (e: any) => {
+    setName(e.target.value);
   };
 
   const handleEmail = (e: any) => {
@@ -41,7 +36,7 @@ export default function Registermain() {
     if (password1 !== password2) {
       toast.error("Passwords don't match!", errorToastOptions);
     } else {
-      AuthApi.Register(name1, name2, email, password1).then(response => {
+      AuthApi.RegisterCompany(name, email, password1).then(response => {
         if (response.status === 200) {
           AuthApi.Login(email, password1).then(res => {
             setUserData(res.data.token, res.data.id);
@@ -68,13 +63,12 @@ export default function Registermain() {
       <MDBCard className='MDBCard'>
         <MDBCardBody className='px-5'>
           <h2 className="text-uppercase text-center mb-5">Create an account</h2>
-          <MDBInput onChange={handleFirstName} value={name1} wrapperClass='mb-4' label='Your first name' size='lg' id='form1' type='text' />
-          <MDBInput onChange={handleSecondName} value={name2} wrapperClass='mb-4' label='Your last name' size='lg' id='form2' type='text' />
+          <MDBInput onChange={handleName} value={name} wrapperClass='mb-4' label='Your company name' size='lg' id='form1' type='text' />
           <MDBInput onChange={handleEmail} value={email} wrapperClass='mb-4' label='Your Email' size='lg' id='form3' type='email' />
           <MDBInput onChange={handlePassword1} value={password1} wrapperClass='mb-4' label='Password' size='lg' id='form4' type='password' />
           <MDBInput onChange={handlePassword2} value={password2} wrapperClass='mb-4' label='Repeat your password' size='lg' id='form5' type='password' />
           <Button onClick={handleSubmit} className='mb-4 w-100 Auth-Button' size='lg' variant="primary"
-            disabled={[name1,name2,email,password1,password2].some(value=>value.trim().length===0)}
+            disabled={[name,email,password1,password2].some(value=>value.trim().length===0)}
           >Register</Button>
           <h6 className="text-uppercase text-center mb-5">Already have an account? <Link to="/login">login</Link></h6>
         </MDBCardBody>

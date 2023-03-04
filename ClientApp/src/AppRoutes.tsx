@@ -1,7 +1,10 @@
-import AuthWrapper from "./pages/AuthWrapper";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import LogoutPage from "./pages/Logout";
+import RegisterAsCompany from "./pages/RegisterCompany";
+import RegisterAsUser from "./pages/RegisterUser";
+import Profile from "./pages/Profile";
+import RedirectPage from "./pages/Redirect";
 import Project from "./pages/Project";
 
 const AppRoutes = [
@@ -10,13 +13,30 @@ const AppRoutes = [
     element: <HomePage />
   },
   {
-    path: '/register',
-    element: <Register />
+    path: '/user/register',
+    element: <RegisterAsUser />
   },
   {
     path: '/login',
     element: <Login />
   },
+  {
+    path: '/company/register',
+    element: <RegisterAsCompany />
+  },
+  {
+    path: '/redirect',
+    element: <RedirectPage />
+  },
+  {
+    path: '/logout',
+    element: <LogoutPage />
+  },
+  {
+    path: '/profile',
+    index: true,
+    element: <Profile />
+  }
 ];
 
 export default AppRoutes;

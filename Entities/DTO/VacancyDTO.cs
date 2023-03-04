@@ -7,6 +7,6 @@ public class VacancyDTO
     public int Id { get; set; }
     public string Name { get; set; }
     public List<TagDTO> Tags { get; set; }
-    public bool Open { get; set; }
+    public List<UserResponseDTO> Candidates { get; set; } = new();
     public UserResponseDTO? AcceptedCandidate { get; set; }
 }

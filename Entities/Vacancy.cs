@@ -6,5 +6,6 @@ public class Vacancy
     public string Name { get; set; }
     public List<Tag> Tags { get; set; }
     public bool Open { get; set; }
+    public List<User> Candidates { get; set; } = new();
     public User? AcceptedCandidate { get; set; }
 }

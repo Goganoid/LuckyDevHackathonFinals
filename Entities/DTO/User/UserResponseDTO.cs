@@ -15,6 +15,9 @@ public class UserResponseDTO
     public required string Email { get; set; }
     
     public List<TagDTO> SkillTags { get; set; } = new();
+    
+    public string About { get; set; }
     // 0-5
     public LanguageLevel EnglishLevel { get; set; }
+    public string CvLink { get; set; } = "";
 }
