@@ -1,6 +1,5 @@
 import { Container, Button, Row } from "reactstrap";
 import styled from "styled-components";
-import { LightHeader as Header } from "../components";
 
 const Background = styled.div`
     position: fixed;
@@ -119,9 +118,9 @@ const Project = () => {
                     <p><b>Language: </b>English</p>
                     <Container className="vacancy-list">
                         <h5>Vacancies:</h5>
-                        <Row><b>Middle TS React developer</b><span> - tags</span><Button>Respond!</Button></Row>
-                        <Row><b>Middle TS developer</b><span> - tags</span><Button>Respond!</Button></Row>
-                        <Row><b>Middle HTML/CSS developer</b><span> - tags</span><Button>Respond!</Button></Row>
+                        <Row><b>Middle TS React developer</b><span> - tags</span><Button className="purple-btn">Respond!</Button></Row>
+                        <Row><b>Middle TS developer</b><span> - tags</span><Button className="purple-btn">Respond!</Button></Row>
+                        <Row><b>Middle HTML/CSS developer</b><span> - tags</span><Button className="purple-btn">Respond!</Button></Row>
                     </Container>
                 </Info>
             </Layout>
