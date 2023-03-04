@@ -3,15 +3,6 @@ a {
   color: #0366d6;
 }
 
-.btn {
-  background-color: #8639E8 !important;
-}
-.btn:is(:hover, :focus) {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-color: #000000 !important;
-}
-
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -68,6 +59,13 @@ code {
 .vacancy-list > .row > .btn {
   width: 120px !important;
   height: 40px;
+  background-color: #8639E8 !important;
+
+}
+.vacancy-list > .row > .btn:is(:hover, :focus) {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
 }
 .vacancy-list > .row > * {
   flex-shrink: 1;
