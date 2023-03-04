@@ -16,3 +16,13 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+@keyframes slidein {
+  from {
+    transform: translateY(30px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
