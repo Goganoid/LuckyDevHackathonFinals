@@ -13,7 +13,7 @@ const MainLayout = styled.div`
         position: absolute;
         width: 60%;
         height: 60%;
-        top: 25%;
+        top: 20%;
         left: 20%;
         display: flex;
         flex-direction: column;
@@ -46,6 +46,7 @@ const Buttons = styled.div`
         background-color: white;
         font-size: 24px;
         width: 40%;
+        max-width: 400px;
     }
 `;
 
@@ -53,7 +54,7 @@ const Main = () => {
     return (
         <MainLayout>
             <div>
-                <SiteInfo>Thanks to LuckyDevFinals, you will be able to find a dream team to work for in a very short time!</SiteInfo>
+                <SiteInfo>Thanks to LuckyDevFinals, you will be able to find a job with a dream team to work with in a very short time!</SiteInfo>
                 <SiteInfo>We guarantee!😉</SiteInfo>
                 <Buttons>
                     <Button>Create project</Button>
