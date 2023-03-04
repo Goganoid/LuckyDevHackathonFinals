@@ -177,6 +177,10 @@ public class AuthController : ControllerBase
                 user.EnglishLevel = requestDTO.EnglishLevel.Value;
             }
 
+            if (requestDTO.CvLink != null)
+            {
+                user.CvLink = requestDTO.CvLink;
+            }
             if (requestDTO.TagIds != null)
             {
                 var newTags = requestDTO.TagIds.Select( id =>

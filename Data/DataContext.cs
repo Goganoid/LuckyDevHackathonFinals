@@ -20,4 +20,5 @@ public class DataContext : DbContext
     public DbSet<Company> Companies { get; set; }
     public DbSet<Tag> Tags { get; set; } 
     public DbSet<Project> Projects { get; set; }
+    public DbSet<Vacancy> Vacancies { get; set; }
 }
