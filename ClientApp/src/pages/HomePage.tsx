@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
-import { Header, Main } from '../components';
+import { DarkHeader as Header, Main } from '../components';
 
 export class Layout extends Component {
   static displayName = Layout.name;
@@ -8,7 +8,7 @@ export class Layout extends Component {
   render() {
     return (
       <div>
-        <Header  />
+        <Header />
           <Main />
       </div>
     );

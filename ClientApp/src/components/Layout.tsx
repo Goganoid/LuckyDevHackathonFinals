@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
-import { Footer, Header, Main } from '../components';
+import { Footer, LightHeader as Header, Main } from '../components';
 
 export class Layout extends Component {
   static displayName = Layout.name;

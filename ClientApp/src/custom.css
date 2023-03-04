@@ -26,3 +26,19 @@ code {
     transform: translateY(0);
   }
 }
+
+.dark-header {
+  background: #8639E8;
+  user-select: none;
+}
+.dark-header a:where(:hover, :visited, :link, :active) {
+  color: #ffffff !important;
+}
+
+.light-header {
+  background: #ffffff;
+  user-select: none;
+}
+.light-header a:where(:hover, :visited, :link, :active) {
+  color: #000000 !important;
+}
