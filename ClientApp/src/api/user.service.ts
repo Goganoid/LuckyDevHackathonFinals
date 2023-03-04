@@ -1,5 +1,5 @@
 import { AxiosError, type AxiosResponse } from "axios";
-import { isLoggedIn, getToken } from "src/utils/storage";
+import { isLoggedIn, getToken } from "../utils/storage";
 import { BaseService } from "./base.service";
 
 export interface UserInformation{

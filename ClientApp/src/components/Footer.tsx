@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import logo from '../assets/logo.png';
+const logo = require('../assets/logo.png');
 
 const BrandContent = styled.div`
   display: flex;
