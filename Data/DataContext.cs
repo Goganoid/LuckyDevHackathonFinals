@@ -1,6 +1,5 @@
 using LuckyDevFinals.Entities;
 using Microsoft.EntityFrameworkCore;
-using RecipeWiki.Entities;
 
 namespace LuckyDevFinals.Data;
 
@@ -18,4 +17,5 @@ public class DataContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
     public DbSet<User> Users { get; set; }
+    public DbSet<Company> Companies { get; set; }
 }

@@ -1,6 +1,6 @@
 namespace LuckyDevFinals.Entities.DTO.User;
 
-public class UpdateRequestDTO
+public class UserUpdateRequestDTO
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

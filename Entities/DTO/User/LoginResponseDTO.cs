@@ -1,6 +1,6 @@
 namespace LuckyDevFinals.Entities.DTO.User;
 
-public class LoginDTO
+public class UserLoginDTO
 {
     public int Id { get; set; }
     public required string FirstName { get; set; }

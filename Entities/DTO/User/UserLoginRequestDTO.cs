@@ -1,6 +1,6 @@
 namespace LuckyDevFinals.Entities.DTO.User;
 
-public class LoginRequestDTO
+public class UserLoginRequestDTO
 {
     /// <example>john_doe@gmail.com</example> 
     public required string Email { get; set; }

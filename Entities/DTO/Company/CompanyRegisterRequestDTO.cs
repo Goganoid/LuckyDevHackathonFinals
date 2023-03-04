@@ -1,19 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LuckyDevFinals.Entities.DTO.User;
+namespace LuckyDevFinals.Entities.DTO.Company;
 
-public class RegisterRequestDTO
+public class CompanyRegisterRequestDTO
 {
-    /// <example>John</example> 
-    public required string FirstName { get; set; }
-
-    /// <example>Doe</example> 
-    public required string LastName { get; set; }
-
     /// <example>john_doe@gmail.com</example>
     [EmailAddress] 
     public required string Email { get; set; }
 
     /// <example>123456</example>
     public required string Password { get; set; }
+    
+    public required string Name { get; set; }
 }

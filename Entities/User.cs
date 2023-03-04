@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using RecipeWiki.Helpers;
 
 namespace LuckyDevFinals.Entities;
 
-public class User
+public class User : BaseUser
 {
     public User()
     {
@@ -12,21 +11,17 @@ public class User
 
     [SetsRequiredMembers]
     public User(string firstName, string lastName, string email,
-        string password)
+        string password) : base(email, password)
     {
         FirstName = firstName;
         LastName = lastName;
-        Email = email;
-        PasswordUtils.CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
-        PasswordHash = passwordHash;
-        PasswordSalt = passwordSalt;
     }
 
-    public int Id { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
-    [EmailAddress] public required string Email { get; set; }
-    public required byte[] PasswordHash { get; set; }
-    public required byte[] PasswordSalt { get; set; }
 
+    public List<Tag> SkillTags { get; set; } = new();
+    // 0-5
+    public LanguageLevel EnglishLevel { get; set; } = LanguageLevel.NoEnglish;
+    
 }

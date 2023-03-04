@@ -6,6 +6,7 @@ using System.Text;
 using AutoMapper;
 using LuckyDevFinals.Data;
 using LuckyDevFinals.Entities;
+using LuckyDevFinals.Entities.DTO;
 using LuckyDevFinals.Entities.DTO.User;
 using LuckyDevFinals.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -13,15 +14,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RecipeWiki.Entities;
-using RecipeWiki.Entities.DTO;
-using RecipeWiki.Helpers;
 
 namespace LuckyDevFinals.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("auth/user")]
 public class AuthController : ControllerBase
 {
     private readonly AppSettings _appSettings;
@@ -45,10 +43,10 @@ public class AuthController : ControllerBase
     /// <response code="200">Request successful</response>
     /// <response code="400">If the email or password is incorrect </response>
     [AllowAnonymous]
-    [ProducesResponseType(typeof(LoginDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UserLoginDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status400BadRequest)]
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequestDTO model)
+    public IActionResult Login([FromBody] UserLoginRequestDTO model)
     {
         var user = Authenticate(model.Email, model.Password);
 
@@ -71,7 +69,7 @@ public class AuthController : ControllerBase
         var tokenString = tokenHandler.WriteToken(token);
 
         // return basic user info and authentication token
-        return Ok(new LoginDTO
+        return Ok(new UserLoginDTO
         {
             Id = user.Id,
             Email = user.Email,
@@ -88,7 +86,7 @@ public class AuthController : ControllerBase
     /// <response code="400">The email or password is incorrect </response>
     [AllowAnonymous]
     [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterRequestDTO requestDTO)
+    public IActionResult Register([FromBody] UserRegisterRequestDTO requestDTO)
     {
         
 
@@ -132,7 +130,7 @@ public class AuthController : ControllerBase
     /// <response code="200">Request successful</response>
     /// <response code="401">Unauthorized</response>
     [HttpPut("update")]
-    public IActionResult Update([FromBody] UpdateRequestDTO requestDTO)
+    public IActionResult Update([FromBody] UserUpdateRequestDTO requestDTO)
     {
         var id = AuthController.GetUserId(HttpContext.User.Identity as ClaimsIdentity);
         if (id == null) return Unauthorized("Unauthorized");

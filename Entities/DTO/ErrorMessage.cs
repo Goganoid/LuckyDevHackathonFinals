@@ -1,3 +1,3 @@
-namespace RecipeWiki.Entities.DTO;
+namespace LuckyDevFinals.Entities.DTO;
 
 public record ErrorMessage(string message);

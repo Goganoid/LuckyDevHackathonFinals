@@ -1,6 +1,4 @@
-using System;
-
-namespace RecipeWiki.Helpers;
+namespace LuckyDevFinals.Helpers;
 
 public static class PasswordUtils
 {

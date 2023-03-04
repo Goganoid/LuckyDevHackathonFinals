@@ -1,4 +1,4 @@
-namespace RecipeWiki.Helpers;
+namespace LuckyDevFinals.Helpers;
 
 public class JwtAuthenticationDefaults
 {
