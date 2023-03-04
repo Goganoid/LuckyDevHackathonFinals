@@ -16,10 +16,13 @@ public class AutoMapperProfile : Profile
 
 
         CreateMap<Tag, TagDTO>();
+        CreateMap<TagDTO, Tag>();
         CreateMap<CompanyRegisterRequestDTO, Company>();
         CreateMap<Company, CompanyResponseDTO>();
         CreateMap<CompanyReview, CompanyReviewDTO>();
         CreateMap<Project, ProjectDTO>();
         CreateMap<Vacancy, VacancyDTO>();
+        CreateMap<CreateVacancyDTO,Vacancy>();
+        CreateMap<CreateProjectRequestDTO, Project>();
     }
 }
