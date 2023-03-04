@@ -2,15 +2,20 @@ import { AxiosError, type AxiosResponse } from "axios";
 import { isLoggedIn, getToken } from "../utils/storage";
 import { BaseService } from "./base.service";
 
-export interface UserInformation{
-        id: number,
-        firstName: string,
-        lastName: string,
-        email: string,
-        skillTags: [],
-        about: string,
-        englishLevel: number,
-        cvLink: string,
+export interface UserInformation {
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    skillTags: Tag[],
+    about: string,
+    englishLevel: number,
+    cvLink: string,
+}
+
+interface Tag {
+    id: number,
+    label: string,
 }
 
 // Service that handles all requests connected with user actions
