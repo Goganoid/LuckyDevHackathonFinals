@@ -33,9 +33,6 @@ const HeaderNavbar: React.FC<Props> = ({link}) => {
             <NavLink tag={Link} to="/users">Users</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={Link} to="/profile">Name</NavLink>
-          </NavItem>
-          <NavItem>
             <NavLink tag={Link} to="/profile">Profile</NavLink>
           </NavItem>
           <NavItem>

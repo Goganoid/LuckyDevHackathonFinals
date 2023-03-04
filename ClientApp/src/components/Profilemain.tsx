@@ -1,4 +1,4 @@
-import { MDBContainer } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { UserApi } from '../api/user.service'
 import { useEffect, useState } from 'react';
 
@@ -10,6 +10,16 @@ interface UserProfile {
     skillTags: [],
     about: string,
     englishLevel: number,
+}
+
+enum LanguageLevel
+{
+    NoEnglish,
+    Beginner,
+    PreIntermediate,
+    Intermediate,
+    UpperIntermediate,
+    Advanced
 }
 
 export default function Profilemain() {
@@ -32,11 +42,27 @@ export default function Profilemain() {
 
     return (
     <MDBContainer fluid className='align-items-center justify-content-center w-75'>
-        <h1 className='display-3'>{`${userData?.firstName} ${userData?.lastName}`}</h1>
-        <h3 className='text-secondary'>{`${userData?.email}`}</h3>
-        <h1 className='display-3 mt-5'>My projects:</h1>
-
-
+        <MDBCard className='MDBCard p-4 m-3'>
+            <MDBCardBody>
+                <h1 className='display-3'>{`${userData?.firstName} ${userData?.lastName}`}</h1>
+                <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>
+                <hr className='my-5' />
+                <h3 className='display-4 m-3'>About me:</h3>
+                <MDBCard>
+                    <MDBCardBody>
+                        {`${userData?.about}`}
+                    </MDBCardBody>
+                </MDBCard>
+                <h3 className='display-4 m-3 mt-5'>Tags: </h3>
+                <MDBCard>
+                    <MDBCardBody>
+                        {`${userData?.about}`}
+                    </MDBCardBody>
+                </MDBCard>
+                <p className='display-6 m-3 mt-5'>My CV: </p>
+                <p className='display-6 m-3'>My English level: {`${LanguageLevel[userData?.englishLevel ? userData?.englishLevel : 0]}`}</p>
+            </MDBCardBody>
+        </MDBCard>
     </MDBContainer>
     )
 }
