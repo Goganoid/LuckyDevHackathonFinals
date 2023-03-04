@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Badge } from 'reactstrap';
 import { UserInformation } from '../api/user.service';
 import { useParams } from 'react-router-dom';
-import { getUserId } from '../utils/storage';
+import { getUserId, isCompany } from '../utils/storage';
 import { MoreButton } from './Cards/UserCard';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ export default function Profilemain() {
             <MDBCardBody>
                 <h1 className='display-3 d-inline'>{`${userData?.firstName} ${userData?.lastName}`}</h1>
                 {
-                    id == getUserId() ? 
+                    id == getUserId() && !isCompany() ? 
                     <Link to='/edit-profile'><MoreButton className="purple-btn mx-3">Edit</MoreButton></Link> : <></>
                 }
                 <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>

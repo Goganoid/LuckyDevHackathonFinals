@@ -36,9 +36,14 @@ const AppRoutes = [
     element: <LogoutPage />
   },
   {
-    path: '/profile/:id',
+    path: '/profile/company/:id',
     index: true,
-    element: <Profile />
+    element: <Profile dataType="company"/>
+  },
+  {
+    path: '/profile/user/:id',
+    index: true,
+    element: <Profile dataType="user"/>
   },
   {
     path: '/edit-profile',

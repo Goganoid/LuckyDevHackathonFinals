@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { isLoggedIn } from '../utils/storage';
+import { isCompany, isLoggedIn } from '../utils/storage';
 import { getUserId } from '../utils/storage';
 
 interface Props {
@@ -44,7 +44,7 @@ const HeaderNavbar: React.FC<Props> = ({link}) => {
           :
           <>
             <NavItem>
-              <NavLink tag={Link} to={`/profile/${getUserId()}`}>Profile</NavLink>
+              <NavLink tag={Link} to={isCompany()?`/profile/company/${getUserId()}`:`/profile/user/${getUserId()}`}>Profile</NavLink>
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/logout">Logout</NavLink>
