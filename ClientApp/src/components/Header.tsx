@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { isLoggedIn } from '../utils/storage';
 import { getUserId } from '../utils/storage';
 
-const expand = 'lg';
-
 interface Props {
   className?: string;
   link: any;

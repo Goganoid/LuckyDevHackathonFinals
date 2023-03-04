@@ -19,7 +19,7 @@ const TextWrapper = styled.div`
     }
 `;
 
-const MoreButton = styled.button`
+export const MoreButton = styled.button`
     width: 140px;
     height: 60px;
     align-self: flex-end;
