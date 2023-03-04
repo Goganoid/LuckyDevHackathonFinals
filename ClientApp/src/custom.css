@@ -43,11 +43,11 @@ code {
   user-select: none;
 }
 .dark-header a:is(:hover, :visited, :link, :active) {
-  color: #ffffff !important;
+  color: #FFFFFF !important;
 }
 
 .light-header {
-  background: #ffffff;
+  background: #FFFFFF !important;
   user-select: none;
 }
 .light-header a:is(:hover, :visited, :link, :active) {

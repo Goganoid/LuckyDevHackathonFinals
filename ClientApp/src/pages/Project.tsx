@@ -2,19 +2,23 @@ import { Container, Button, Row } from "reactstrap";
 import styled from "styled-components";
 import { Footer, LightHeader as Header } from '../components';
 
-const Background = styled.div`
+export const Background = styled.div`
     position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
 
     background-color: #EDF7F8;
 `;
 
-const Layout = styled.div`
+export const Layout = styled.div`
     position: relative;
     border-radius: 25px;
-    width: 86%;
-    margin: 80px 7%;
+    width: 80%;
+    max-width: 1000px;
+    margin: 40px auto;
     padding 1.5em;
     display: flex;
     flex-direction: column;
@@ -72,12 +76,12 @@ const Info = styled.div`
     }
 `;
 
-const Title = styled.span`
+export const Title = styled.span`
     display: block;
     width: 90%;
     margin: 0 5%;
     font-size: 36px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ced4da;
     text-align: center;
 `;
 
@@ -101,6 +105,7 @@ const Project = () => {
         <>
         <Header />
             <Background />
+            <Header />
             <Layout>
                 {Link === null ? <></> :
                 <>
