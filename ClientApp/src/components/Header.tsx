@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -36,6 +36,12 @@ const Header: React.FC<Props> = ({ className }) => {
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="text-light" to="/profile">Profile</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-light" to="/register">Register</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-light" to="/login">Login</NavLink>
               </NavItem>
             </ul>
           </Collapse>
