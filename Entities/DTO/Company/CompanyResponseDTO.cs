@@ -10,5 +10,6 @@ public class CompanyResponseDTO
     
     public required string About { get; set; }
     
-    public List<Project> Projects { get; set; }
+    public List<ProjectDTO> Projects { get; set; }
+    public List<CompanyReviewDTO> Reviews { get; set; }
 }

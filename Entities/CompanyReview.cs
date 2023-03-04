@@ -1,6 +1,6 @@
 namespace LuckyDevFinals.Entities;
 
-public class ProjectReview
+public class CompanyReview
 {
     public int Id { get; set; }
     public int UserId { get; set; }

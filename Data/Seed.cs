@@ -43,6 +43,48 @@ public static class Seed
 
         return users;
     }
+
+    private static List<Company> SeedCompanies(int amount)
+    {
+        List<Company> companies = new();
+        for (int i = 0; i < amount; i++)
+        {
+            var company = new Company($"company_email{(i==0?"":i)}@gmail.com", "123456");
+            company.Name = $"Company {i}";
+            company.About = lorem;
+            company.Reviews = Enumerable.Range(0, Random.Shared.Next(1, 6)).Select(_j => new CompanyReview
+            {
+                Content = lorem
+            }).ToList();
+            company.Projects = Enumerable.Range(0, Random.Shared.Next(1, 6)).Select(_i =>
+            {
+                var pubDate = DateTime.Now.Subtract(TimeSpan.FromDays(Random.Shared.Next(60)));
+                
+                // var vacancies = Enumerable.Range(0, Random.Shared.Next(1, 6)).Select(_j =>
+                // {
+                //     
+                //     return new Vacancy
+                //     {
+                //         Name = $"[{company.Name}] Vacancy {_j}",
+                //         Open = true,
+                //         
+                //     }
+                // }).ToList();
+                return new Project
+                {
+                    Description = lorem,
+                    Title = $"[{company.Name}] Project {_i}",
+                    EnglishLevel = (LanguageLevel) Random.Shared.Next(0, 6),
+                    PublicationDate = pubDate,
+                    Vacancies = new(),
+                    ProjectHiringStatus = ProjectHiringStatus.Ongoing
+                };
+            }).ToList();
+            companies.Add(company);
+        }
+
+        return companies;
+    }
     
     public static void SeedData(DataContext dataContext)
     {
@@ -51,6 +93,8 @@ public static class Seed
         dataContext.Tags.AddRange(SeedTags());
         dataContext.SaveChanges();
         dataContext.Users.AddRange(SeedUsers(10,dataContext));
+        dataContext.SaveChanges();
+        dataContext.Companies.AddRange(SeedCompanies(5));
         dataContext.SaveChanges();
     }
 }

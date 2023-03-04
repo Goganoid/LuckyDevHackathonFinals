@@ -10,4 +10,5 @@ public class Company : BaseUser
     
     public string Name { get; set; }
     public List<Project> Projects { get; set; } = new();
+    public List<CompanyReview> Reviews { get; set; }
 }
