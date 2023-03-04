@@ -1,4 +1,5 @@
 using LuckyDevFinals.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuckyDevFinals.Data;
 
@@ -44,9 +45,10 @@ public static class Seed
         return users;
     }
 
-    private static List<Company> SeedCompanies(int amount)
+    private static List<Company> SeedCompanies(int amount,DataContext dataContext)
     {
         List<Company> companies = new();
+       
         for (int i = 0; i < amount; i++)
         {
             var company = new Company($"company_email{(i==0?"":i)}@gmail.com", "123456");
@@ -60,16 +62,7 @@ public static class Seed
             {
                 var pubDate = DateTime.Now.Subtract(TimeSpan.FromDays(Random.Shared.Next(60)));
                 
-                // var vacancies = Enumerable.Range(0, Random.Shared.Next(1, 6)).Select(_j =>
-                // {
-                //     
-                //     return new Vacancy
-                //     {
-                //         Name = $"[{company.Name}] Vacancy {_j}",
-                //         Open = true,
-                //         
-                //     }
-                // }).ToList();
+                
                 return new Project
                 {
                     Description = lorem,
@@ -85,7 +78,34 @@ public static class Seed
 
         return companies;
     }
-    
+
+    private static void SeedVacancies(DataContext dataContext)
+    {
+        var tags = dataContext.Set<Tag>().ToList();
+        foreach (var company in dataContext.Companies.Include(c=>c.Projects))
+        {
+            foreach (var project in company.Projects)
+            {
+                var vacancies = Enumerable.Range(0, Random.Shared.Next(1, 6)).Select(_j =>
+                {
+                    var tags_s = tags
+                        .OrderBy(x => Random.Shared.Next())
+                        .Take(Random.Shared.Next(4, 8))
+                        // .Select(t=>new Tag{Id = t.Id,Label = t.Label})
+                        .ToList();
+                    return new Vacancy
+                    {
+                        Name = $"[{company.Name}] Vacancy {_j}",
+                        Open = true,
+                        Tags = tags_s
+                    };
+                }).ToList();
+                project.Vacancies.AddRange(vacancies);
+                dataContext.SaveChanges();
+            }
+            
+        }
+    }
     public static void SeedData(DataContext dataContext)
     {
         if(dataContext.Users.Any()) return;
@@ -94,7 +114,9 @@ public static class Seed
         dataContext.SaveChanges();
         dataContext.Users.AddRange(SeedUsers(10,dataContext));
         dataContext.SaveChanges();
-        dataContext.Companies.AddRange(SeedCompanies(5));
+        dataContext.Companies.AddRange(SeedCompanies(5,dataContext));
+        dataContext.SaveChanges();
+        SeedVacancies(dataContext);
         dataContext.SaveChanges();
     }
 }
