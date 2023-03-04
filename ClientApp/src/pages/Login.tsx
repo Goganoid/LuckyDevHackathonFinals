@@ -1,9 +1,11 @@
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react';
-import { Loginmain } from '../components';
+import { DarkHeader, Footer, Loginmain } from '../components';
 
 const Login: FunctionComponent<PropsWithChildren> = () => (
   <Fragment>
+    <DarkHeader />
     <Loginmain />
+    <Footer />
   </Fragment>
 );
 

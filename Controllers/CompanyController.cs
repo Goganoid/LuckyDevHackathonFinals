@@ -7,6 +7,7 @@ using LuckyDevFinals.Entities;
 using LuckyDevFinals.Entities.DTO;
 using LuckyDevFinals.Entities.DTO.Company;
 using LuckyDevFinals.Entities.DTO.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +37,7 @@ public class CompanyController : ControllerBase
         var companyDTO = _mapper.Map<CompanyResponseDTO>(company);
         return Ok(companyDTO);
     }
-
+    [Authorize]
     [HttpPost("project-create")]
     public async Task<IActionResult> AddProject(CreateProjectRequestDTO projectDTO)
     {
@@ -60,5 +61,32 @@ public class CompanyController : ControllerBase
             // return error message if there was an exception
             return BadRequest(new {message = ex.Message});
         }
+    }
+    [Authorize]
+    [HttpPost("reviews-create")]
+    public async Task<IActionResult> AddReview(CreateReviewDTO reviewDTO)
+    {
+        var id = AuthController.GetUserId(HttpContext.User.Identity as ClaimsIdentity);
+        if (id == null) return Unauthorized("Unauthorized");
+        var user = await _context.Users
+            .FirstOrDefaultAsync(c => c.Id == id);
+        try
+        {
+            if (user == null) return NotFound("user not found");
+            var newReview = _mapper.Map<CompanyReview>(reviewDTO);
+            var company = _context.Companies
+                .Include(c=>c.Reviews)
+                .FirstOrDefault(c=>c.Id==reviewDTO.CompanyId);
+            if(company==null) return NotFound("company not found");
+            newReview.UserId = user.Id;
+            company.Reviews.Add(newReview);
+            _context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            // return error message if there was an exception
+            return BadRequest(new {message = ex.Message});
+        }  
     }
 }

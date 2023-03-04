@@ -76,7 +76,7 @@ export default function Registermain() {
           <Button onClick={handleSubmit} className='mb-4 w-100 Auth-Button' size='lg' variant="primary"
             disabled={[name1,name2,email,password1,password2].some(value=>value.trim().length===0)}
           >Register</Button>
-          <h6 className="text-uppercase text-center mb-5">Already have an account? <Link to="/auth/login">login</Link></h6>
+          <h6 className="text-uppercase text-center mb-5">Already have an account? <Link to="/login">login</Link></h6>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>
