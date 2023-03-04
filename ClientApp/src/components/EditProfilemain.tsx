@@ -2,6 +2,7 @@ import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 import { Badge } from 'reactstrap';
 import { UserInformation } from '../api/user.service';
+import { MDBInput } from 'mdb-react-ui-kit';
 
 
 enum LanguageLevel
@@ -21,6 +22,7 @@ export default function EditProfilemain() {
     <MDBContainer fluid className='align-items-center justify-content-center w-75'>
         <MDBCard className='MDBCard p-4 m-3'>
             <MDBCardBody>
+                <MDBInput wrapperClass='mb-4' label='First name' size='lg' id='form2' type='email' />
                 <h1 className='display-3 d-inline'>{`${userData?.firstName} ${userData?.lastName}`}</h1>
                 <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>
                 <hr className='my-5' />
