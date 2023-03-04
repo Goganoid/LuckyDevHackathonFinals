@@ -7,7 +7,9 @@ export interface UserInformation{
         firstName: string,
         lastName: string,
         email: string,
-        skillTags: []
+        skillTags: [],
+        about: string,
+        englishLevel: number,
 }
 
 // Service that handles all requests connected with user actions
