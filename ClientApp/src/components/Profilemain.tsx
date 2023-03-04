@@ -1,15 +1,22 @@
 import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { UserApi } from '../api/user.service'
 import { useEffect, useState } from 'react';
+import { Badge } from 'reactstrap';
 
 interface UserProfile {
     id: number,
     firstName: string,
     lastName: string,
     email: string,
-    skillTags: [],
+    skillTags: Tag[],
     about: string,
     englishLevel: number,
+    cvLink: string,
+}
+
+interface Tag {
+    id: number,
+    label: string,
 }
 
 enum LanguageLevel
@@ -36,6 +43,7 @@ export default function Profilemain() {
                 skillTags: UserInfoResponse.data.skillTags,
                 about: UserInfoResponse.data.about,
                 englishLevel: UserInfoResponse.data.englishLevel,
+                cvLink: UserInfoResponse.data.cvLink
             })
         })
     }, [])
@@ -53,13 +61,17 @@ export default function Profilemain() {
                         {`${userData?.about}`}
                     </MDBCardBody>
                 </MDBCard>
-                <h3 className='display-4 m-3 mt-5'>Tags: </h3>
+                <h3 className='display-4 m-3 mt-5'>My skills: </h3>
                 <MDBCard>
                     <MDBCardBody>
-                        {`${userData?.about}`}
+                        {userData?.skillTags.map((skill) => (
+                            <Badge color="secondary" key={skill.id} className='m-2'>
+                                <p className='h3'>{`${skill.label}`}</p>
+                            </Badge>
+                        ))}
                     </MDBCardBody>
                 </MDBCard>
-                <p className='display-6 m-3 mt-5'>My CV: </p>
+                <p className='display-6 m-3 mt-5'>My CV: {`${userData?.cvLink}`}</p>
                 <p className='display-6 m-3'>My English level: {`${LanguageLevel[userData?.englishLevel ? userData?.englishLevel : 0]}`}</p>
             </MDBCardBody>
         </MDBCard>

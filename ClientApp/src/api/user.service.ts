@@ -10,6 +10,7 @@ export interface UserInformation{
         skillTags: [],
         about: string,
         englishLevel: number,
+        cvLink: string,
 }
 
 // Service that handles all requests connected with user actions
