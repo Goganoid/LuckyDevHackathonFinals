@@ -1,5 +1,5 @@
-import type { FunctionComponent } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const CardWrapper = styled.div`
     width: 970px;
@@ -24,18 +24,19 @@ const MoreButton = styled.button`
     border: 1px solid #000;
 `;
 
-interface IprojectCard {
+interface IProjectCard {
+  id: number,
   name: string,
   description: string
 }
 
-const ProjectCard = ({name, description}: IprojectCard): JSX.Element  => (
+const ProjectCard = ({id, name, description}: IProjectCard): JSX.Element  => (
   <CardWrapper>
     <TextWrapper>
         <h3>{name}</h3>
         <h4>{description}</h4>
     </TextWrapper>
-    <MoreButton>More</MoreButton>
+    <Link to={`/project/${id}`}><MoreButton className="purple-btn">More</MoreButton></Link>
   </CardWrapper>
 );
 

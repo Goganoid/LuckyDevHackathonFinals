@@ -6,6 +6,7 @@ export interface ProjectInformation {
     id: number,
     description: string,
     title: string,
+    englishLevel: number
 }
 
 // Service that handles all requests connected with user actions
@@ -37,6 +38,12 @@ class ProjectService extends BaseService {
     public async GetProjects(): Promise<AxiosResponse<ProjectInformation[]>>{
         const url = ``;
         const data = await this.$http.get<ProjectInformation[]>(url);
+        return data;
+    }
+
+    public async GetProject(projectId: string): Promise<AxiosResponse<ProjectInformation>>{
+        const url = `${projectId}`;
+        const data = await this.$http.get<ProjectInformation>(url);
         return data;
     }
 }

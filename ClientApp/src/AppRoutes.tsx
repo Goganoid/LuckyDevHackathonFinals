@@ -47,6 +47,11 @@ const AppRoutes = [
     path: '/projects',
     element: <ProjectsPage />
   },
+  {
+    path: '/project/:id',
+    index: true,
+    element: <Project />
+  }
 ];
 
 export default AppRoutes;

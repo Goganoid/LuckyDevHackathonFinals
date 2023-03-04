@@ -13,7 +13,7 @@ export default function ProjectList() {
     }, [])
 
     const listItems = projects?.map((project: any, idx: number) => {
-        return <ProjectCard key={idx} name={project.name} description={project.description} />
+        return <ProjectCard key={idx} id={idx+1} name={project.name} description={project.description} />
     }
     );
 
