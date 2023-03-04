@@ -41,7 +41,7 @@ const AppRoutes = [
   },
   {
     path: '/users',
-    element: <CreateProject />
+    element: <UsersPage />
   },
 ];
 
