@@ -5,6 +5,7 @@ import RegisterAsCompany from "./pages/RegisterCompany";
 import RegisterAsUser from "./pages/RegisterUser";
 import Profile from "./pages/Profile";
 import RedirectPage from "./pages/Redirect";
+import Project from "./pages/Project";
 
 const AppRoutes = [
   {
