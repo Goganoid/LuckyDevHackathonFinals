@@ -1,3 +1,4 @@
+import { CompanyInformation } from './company.service';
 import { AxiosError, type AxiosResponse } from "axios";
 import { isLoggedIn, getToken } from "../utils/storage";
 import { BaseService } from "./base.service";
@@ -16,6 +17,20 @@ export interface UserInformation {
 export interface Tag {
     id: number,
     label: string,
+}
+
+export interface Invite{
+    id: number;
+    message: string;
+    company: CompanyInformation;
+    vacancyId: number;
+    status: number;
+    userId: number;
+}
+export interface Application{
+    id: number;
+    name: string;
+    status: number;
 }
 
 // Service that handles all requests connected with user actions
@@ -60,6 +75,38 @@ class UserService extends BaseService {
         const url = `apply/${vacancyId}`;
         try {
             const data = await this.$http.post(url);
+            return data;
+        }
+        catch (error: any | AxiosError) {
+            const err = error as AxiosError;
+            return err.response;
+        }
+    }
+    public async GetInvites(): Promise<AxiosResponse<Invite[]>>{
+        const url = `invites`;
+        const data = await this.$http.get<Invite[]>(url);
+        return data;
+    }
+    public async GetApplications(): Promise<AxiosResponse<Application[]>>{
+        const url = `applications`;
+        const data = await this.$http.get<Application[]>(url);
+        return data;
+    }
+    public async Accept(inviteId: number): Promise<AxiosResponse<any>|undefined>{
+        const url = `invites/accept/${inviteId}`;
+        try {
+            const data = await this.$http.put(url);
+            return data;
+        }
+        catch (error: any | AxiosError) {
+            const err = error as AxiosError;
+            return err.response;
+        }
+    }
+    public async Decline(inviteId: number): Promise<AxiosResponse<any>|undefined>{
+        const url = `invites/decline/${inviteId}`;
+        try {
+            const data = await this.$http.put(url);
             return data;
         }
         catch (error: any | AxiosError) {
