@@ -84,12 +84,12 @@ const Main = () => {
                 <SiteInfo>Thanks to LuckyDevFinals, you will be able to find a job with a dream team to work with in a very short time!</SiteInfo>
                 <SiteInfo>We guarantee!😉</SiteInfo>
                 <Buttons>
-                    <Button className="white-btn" href='/users'>Find candidates</Button>
-                    <Button className="white-btn" href='/projects'>Find a job</Button>
+                    <Button className="white-btn" href='/users'>Find candidates!</Button>
+                    <Button className="white-btn" href='/projects'>Find a job!</Button>
                 </Buttons>
             </div>
         </MainLayout>
-    );
+    );  
 }
 
 export default Main;
