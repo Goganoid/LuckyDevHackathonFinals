@@ -9,6 +9,7 @@ import { getUserId } from '../utils/storage';
 import { Form, Button } from 'react-bootstrap';
 import { successToastOptions } from '../config/toastify.config';
 import { toast } from 'react-toastify';
+import { AuthApi, UserUpdate } from '../api/auth.service';
 
 export default function EditProfilemain() {
     const [userData, setUserProfile] = useState<UserInformation>();
@@ -17,7 +18,7 @@ export default function EditProfilemain() {
     const [email, setEmail] = useState('');
     const [about, setAbout] = useState('');
     const [cvLink, setCVLink] = useState('');
-    const [englishLevel, setEnglishLevel] = useState('');
+    const [englishLevel, setEnglishLevel] = useState(0);
     const [skillTags, setSkillTags] = useState('');
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function EditProfilemain() {
             setEmail(`${UserInfoResponse.data.email}`)
             setAbout(`${UserInfoResponse.data.about}`)
             setCVLink(`${UserInfoResponse.data.cvLink}`)
-            setEnglishLevel(`${UserInfoResponse.data.englishLevel}`)
+            setEnglishLevel(UserInfoResponse.data.englishLevel)
             setSkillTags(`${UserInfoResponse.data.skillTags}`)
         })
     }, [])
@@ -70,7 +71,8 @@ export default function EditProfilemain() {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         toast.info("Sending request...", successToastOptions);
-        console.log(e);
+        AuthApi.UpdateUser({firstName, lastName, email, skillTags, about, englishLevel, cvLink} as UserUpdate)
+        window.location.href = `profile/user/${getUserId()}`;
     }
 
     return (
@@ -99,16 +101,16 @@ export default function EditProfilemain() {
                 <MDBInput wrapperClass='mb-4' onChange={handleCV} value={cvLink} placeholder='My CV' size='lg' id='form5'  />
                 <p className='display-6 m-3'>My English level: </p>
                 <Form.Select aria-label="Language level required"
-                    value={englishLevel ?? "0"}
+                    value={englishLevel ?? 0}
                     onChange={(e) => {
-                    setEnglishLevel(e.target.value);
+                    setEnglishLevel(Number(e.target.value));
                 }}>
-                    <option value="0">No English</option>
-                    <option value="1">Beginner</option>
-                    <option value="2">Pre-Intermediate</option>
-                    <option value="3">Intermediate</option>
-                    <option value="4">Upper-Intermediate</option>
-                    <option value="5">Advanced</option>
+                    <option value={0}>No English</option>
+                    <option value={1}>Beginner</option>
+                    <option value={2}>Pre-Intermediate</option>
+                    <option value={3}>Intermediate</option>
+                    <option value={4}>Upper-Intermediate</option>
+                    <option value={5}>Advanced</option>
                 </Form.Select>
                 <Button onClick={handleSubmit}
                     className='my-4 w-100 Auth-Button' size='lg' variant='primary'>Confirm</Button>

@@ -107,7 +107,7 @@ export default function Profilemain() {
             <MDBCardBody>
                 <h1 className='display-3 d-inline'><b>{`${userData?.firstName} ${userData?.lastName}`}</b></h1>
                 {
-                    id === getUserId() && !isCompany() ?
+                    id == getUserId() && !isCompany() ?
                     <Link to='/edit-profile'><MoreButton className="purple-btn mx-3">Edit</MoreButton></Link> : <></>
                 }
                 <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>
