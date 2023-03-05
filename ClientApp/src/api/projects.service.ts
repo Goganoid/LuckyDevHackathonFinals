@@ -2,6 +2,7 @@ import { AxiosError, type AxiosResponse } from "axios";
 import { Tag } from "reactstrap";
 import { isLoggedIn, getToken } from "../utils/storage";
 import { BaseService } from "./base.service";
+import { ProjectInfo } from "./company.service";
 
 export interface Vacancy {
     id: number;
@@ -42,15 +43,15 @@ class ProjectService extends BaseService {
         }
     }
 
-    public async GetProjects(): Promise<AxiosResponse<ProjectInformation[]>>{
+    public async GetProjects(): Promise<AxiosResponse<ProjectInfo[]>>{
         const url = ``;
-        const data = await this.$http.get<ProjectInformation[]>(url);
+        const data = await this.$http.get<ProjectInfo[]>(url);
         return data;
     }
 
-    public async GetProject(projectId: string): Promise<AxiosResponse<ProjectInformation>>{
+    public async GetProject(projectId: string): Promise<AxiosResponse<ProjectInfo>>{
         const url = `${projectId}`;
-        const data = await this.$http.get<ProjectInformation>(url);
+        const data = await this.$http.get<ProjectInfo>(url);
         return data;
     }
 }

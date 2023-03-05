@@ -1,7 +1,14 @@
-import { Container, Button, Row } from "reactstrap";
+import { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Container, Button, Row, Badge } from "reactstrap";
 import styled from "styled-components";
+import { Candidate, CompanyApi, ProjectInfo, Vacancy } from "../api/company.service";
+import { ProjectApi, ProjectInformation } from "../api/projects.service";
 import { Footer, LightHeader as Header } from '../components';
-
+import { isCompany } from "../utils/storage";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 export const Background = styled.div`
     position: fixed;
     left: 0;
@@ -27,7 +34,7 @@ export const Layout = styled.div`
     background-color: #FFFFFF;
 `;
 
-var Link: string | null = "https://cdnb.artstation.com/p/assets/images/images/050/858/481/large/blake-rottinger-water-copy-web.jpg?1655857899";
+var ImgLink: string | null = "https://cdnb.artstation.com/p/assets/images/images/050/858/481/large/blake-rottinger-water-copy-web.jpg?1655857899";
 
 const ProjectBackground = styled.div`
     position: absolute;
@@ -98,40 +105,121 @@ const Description = styled.div`
     }
 `;
 
-const Lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
 const Project = () => {
+    const { id } = useParams();
+    const [project, setProject] = useState<ProjectInfo>();
+    const [showCandidates, setShowCandidates] = useState(false)
+    const [currentVacancy, setCurrentVacancy] = useState<Vacancy>();
+    const handleClose = () => setShowCandidates(false);
+
+    useEffect(() => {
+        ProjectApi.GetProject(id!).then(result => {
+            console.log(result.data);
+            setProject(result.data);
+        })
+    }, [])
+
+    const matchLanguage = (level: number) => {
+        if (level == 0) return 'No English';
+        if (level == 1) return 'Beginner';
+        if (level == 2) return 'Pre-Intermediate';
+        if (level == 3) return 'Intermediate';
+        if (level == 4) return 'Upper-Intermediate';
+        if (level == 5) return 'Advanced';
+        return 'Unknown';
+    }
+
+    const chooseCandidate = (user: Candidate, vacancyId: number) => {
+        CompanyApi.AcceptCandidate(user.id, vacancyId).then(response => {
+            console.log(response)
+            if (response.status === 200) {
+                toast.success("Selected the candidate");
+                let newVacancies = [...project!.vacancies]
+                newVacancies = newVacancies.map(v => {
+                    if (v.id === vacancyId) {
+                        v.acceptedCandidate = user;
+                    }
+                    return v;
+                })
+                setProject({ ...project, vacancies: newVacancies } as ProjectInfo);
+                handleClose();
+            }
+        })
+    }
+
+    if (project == null) return <div>Loading...</div>
     return (
         <>
-        <Header />
             <Background />
             <Header />
             <Layout>
-                {Link === null ? <></> :
-                <>
-                <ProjectBackground>
-                    <img src={Link} alt="" />
-                    <div />
-                </ProjectBackground>
-                <DumbDiv />
-                </>}
+                {ImgLink === null ? <></> :
+                    <>
+                        <ProjectBackground>
+                            <img src={ImgLink} alt="" />
+                            <div />
+                        </ProjectBackground>
+                        <DumbDiv />
+                    </>}
                 <Info>
-                    <Title>The best project</Title>
+                    <Title>{project.title}</Title>
                     <Description>
                         <h5>Description:</h5>
-                        <span>{Lorem}</span>
+                        <span>{project.description}</span>
                     </Description>
-                    <p><b>Project Creation Date: </b>04.03.2004</p>
-                    <p><b>Language: </b>English</p>
+                    <p><b>Project Creation Date: </b>{new Date(project.publicationDate).toLocaleString("en-US")}</p>
+                    <p><b>Language: </b>{matchLanguage(project.englishLevel)}</p>
                     <Container className="vacancy-list">
                         <h5>Vacancies:</h5>
-                        <Row><b>Middle TS React developer</b><span> - tags</span><Button className="purple-btn">Respond!</Button></Row>
-                        <Row><b>Middle TS developer</b><span> - tags</span><Button className="purple-btn">Respond!</Button></Row>
-                        <Row><b>Middle HTML/CSS developer</b><span> - tags</span><Button className="purple-btn">Respond!</Button></Row>
+                        {project.vacancies.map(vacancy => {
+                            return (
+                                <Row className="flex-wrap">
+                                    <p className="d-flex justify-content-between px-3"><b>{vacancy.name}</b>
+                                        {vacancy.acceptedCandidate != null ? <Link to={`/profile/user/${vacancy.acceptedCandidate.id}`}>{`${vacancy.acceptedCandidate.firstName} ${vacancy.acceptedCandidate.lastName}`}</Link>
+                                            : !isCompany()
+                                            ? <Button className="purple-btn">Respond!</Button>
+                                            : <Button className="purple-btn" onClick={() => {
+                                                setCurrentVacancy(vacancy);
+                                                setShowCandidates(true);
+                                            }}>Show Candidates</Button>}</p>
+                                    <p>{vacancy.tags.map((skill) => (
+                                        <Badge color="secondary" key={skill.id} className='m-2'>
+                                            {`${skill.label}`}
+                                        </Badge>
+                                    ))}</p>
+                                </Row>
+                            )
+                        })}
                     </Container>
                 </Info>
             </Layout>
-        <Footer />
+            <Footer />
+            <Modal show={showCandidates} onHide={handleClose}>
+                <Modal.Dialog>
+                    <Modal.Header>
+                        <Modal.Title>Candidates</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {currentVacancy?.candidates.map(c => {
+                            return <Row className={`flex-wrap ${currentVacancy.acceptedCandidate?.id===c.id ? 'text-success' : ''}`}>
+                                <p className="d-flex justify-content-between px-3">
+                                    <Link to={`/profile/user/${c.id}`}>{`${c.firstName} ${c.lastName}`}</Link>
+                                <Button onClick={()=>chooseCandidate(c,currentVacancy.id)}>Choose</Button></p>
+                                <p>English: {matchLanguage(c.englishLevel)}</p>
+                                <p>{c.skillTags.map((skill) => (
+                                        <Badge color="secondary" key={skill.id} className='m-2'>
+                                            {`${skill.label}`}
+                                        </Badge>
+                                    ))}</p>
+                            </Row>
+                        })}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+            </Modal>
         </>
     )
 };

@@ -2,20 +2,24 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const CardWrapper = styled.div`
-    width: 970px;
-    height: 230px;
+    width: 100%;
+    height: auto;
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
-    background-color: #D9D9D9;
-    border-radius: 10px;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
 `;
 
 const TextWrapper = styled.div`
     max-width: 50%;
+
+    > h6 {
+      color: gray;
+    }
 `;
 
-const MoreButton = styled.button`
+export const MoreButton = styled.button`
     width: 140px;
     height: 60px;
     align-self: flex-end;
@@ -34,7 +38,7 @@ const ProjectCard = ({id, name, description}: IProjectCard): JSX.Element  => (
   <CardWrapper>
     <TextWrapper>
         <h3>{name}</h3>
-        <h4>{description}</h4>
+        <h5>{description.substring(0,200)+"..."}</h5>
     </TextWrapper>
     <Link to={`/project/${id}`}><MoreButton className="purple-btn">More</MoreButton></Link>
   </CardWrapper>
