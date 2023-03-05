@@ -67,31 +67,13 @@ code {
   }
 }
 
-@keyframes shake {
-  0% {
-    transform: translateX(0px);
-  }
-  10% {
-    transform: translateX(30px);
-  }
-  30% {
-    transform: translateX(-30px);
-  }
-  50% {
-    transform: translateX(30px);
-  }
-  70% {
-    transform: translateX(-30px);
-  }
-  90% {
-    transform: translateX(30px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
+.nawbar-button {
+  border: 1px solid transparent;
+  transition: 200ms;
 }
-.shake {
-  animation: shake;
+.nawbar-button:is(:hover, :focus) {
+  border-left-color: hsl(0, 0%, 90%);
+  border-right-color: hsl(0, 0%, 90%);
 }
 
 .dark-header {

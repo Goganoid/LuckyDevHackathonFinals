@@ -1,7 +1,6 @@
-import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react';
+import { Fragment } from 'react';
 import Profilemain from '../components/Profilemain';
 import { Footer, DarkHeader as Header } from '../components';
-import { isCompany } from '../utils/storage';
 import CompanyProfile from '../components/CompanyProfile';
 
 const Profile = ({dataType}:{dataType:'company'|'user'}) => {

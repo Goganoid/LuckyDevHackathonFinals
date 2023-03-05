@@ -23,30 +23,27 @@ const HeaderNavbar: React.FC<Props> = ({link}) => {
       <NavbarToggler className="mr-2" />
       <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
         <ul className="navbar-nav flex-grow">
-          <NavItem>
-            <NavLink tag={Link} to="/">Home</NavLink>
-          </NavItem>
-          <NavItem>
+          <NavItem className='nawbar-button'>
             <NavLink tag={Link} to="/projects">Projects</NavLink>
           </NavItem>
-          <NavItem>
+          <NavItem className='nawbar-button'>
             <NavLink tag={Link} to="/users">Users</NavLink>
           </NavItem>
           { !isLoggedIn() ?
           <>
-            <NavItem>
+            <NavItem className='nawbar-button'>
               <NavLink tag={Link} to="/redirect">Register</NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem className='nawbar-button'>
               <NavLink tag={Link} to="/login">Login</NavLink>
             </NavItem>
           </> 
           :
           <>
-            <NavItem>
+            <NavItem className='nawbar-button'>
               <NavLink tag={Link} to={isCompany()?`/profile/company/${getUserId()}`:`/profile/user/${getUserId()}`}>Profile</NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem className='nawbar-button'>
               <NavLink tag={Link} to="/logout">Logout</NavLink>
             </NavItem>
           </>
