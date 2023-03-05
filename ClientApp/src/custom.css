@@ -1,4 +1,7 @@
 /* Provide sufficient contrast against white background */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -12,6 +15,7 @@
 
 body {
   background-color: #EDF7F8;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 
@@ -142,6 +146,5 @@ code {
   color: #000000 !important;
 }
 .white-btn:is(:hover, :focus) {
-  background-color: #ececec !important;
-  border-color: #000000 !important;
+  background-color: hsl(0, 0%, 90%) !important;
 }

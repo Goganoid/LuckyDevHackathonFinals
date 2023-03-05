@@ -14,10 +14,10 @@ const Container = styled.div`
     min-height: 700px;
 `
 const Left = styled.div`
-      flex-basis: 75%;
+    flex-basis: 75%;
 `
 const Right = styled.div`
-    flex-basis:25%;
+    flex-basis: 25%;
 `
 
 export default function UserList() {
@@ -45,10 +45,10 @@ export default function UserList() {
     return (
         <Container>
             <Left>
-                <MDBContainer fluid className='align-items-center justify-content-center w-75'>
+                <MDBContainer fluid className='align-items-center justify-content-center'>
                     <MDBCard className='MDBCard p-4 m-3'>
-                        <MDBCardBody>
-                            <ul>{listItems}</ul>
+                        <MDBCardBody className='d-flex flex-column-reverse'>
+                            {listItems}
                         </MDBCardBody>
                     </MDBCard>
                 </MDBContainer>

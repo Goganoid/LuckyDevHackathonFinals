@@ -4,19 +4,27 @@ import Select from "react-select";
 import styled from "styled-components";
 
 export const FilterMenu = styled.div`
-    right: 1.5%;
-    top:30%;
     position: sticky;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20% 10%;
+    right: 1.5%;
+    top: calc(50% - 100px);
     width: 90%;
     max-width: 350px;
+    min-height: 200px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 30px 20px;
+
     background-color: #8539e8dd;
-    color:white;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    border-radius: 30px;
+    color: white;
+    border-radius: 10px;
+    outline: 3px solid white;
+
+    > form {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    } 
 `;
 
 
@@ -25,7 +33,7 @@ export type FilterProps = {
 }
 
 
-const tags = [
+export const tags = [
     "JS",
     "React.js",
     ".NET",
@@ -58,7 +66,7 @@ export function Filter({ updateList }: FilterProps) {
     const [filterTags, setFilterTags] = useState<string[]>([]);
     return (
         <FilterMenu>
-            <form className='search-form w-100'>
+            <form className='w-100'>
                 <h5>Tags:</h5>
                 <Select
                     className='filter-item text-dark'
@@ -73,7 +81,7 @@ export function Filter({ updateList }: FilterProps) {
                         if (action === 'clear')
                             setFilterTags([]);
                     }} />
-                <Button className='d-flex mt-4 mx-auto w-90%' variant="success" onClick={() => {
+                <Button className='d-flex mt-4 mx-auto w-90% white-btn' variant="success" onClick={() => {
                     updateList(filterTags);
                 }}>Apply</Button>
             </form>

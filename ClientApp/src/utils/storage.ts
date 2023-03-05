@@ -8,7 +8,6 @@ export function setUserData(token:string, userId:number, userType:'user'|'compan
     localStorage.setItem('userType', userType);
 }
 export function isCompany() {
-    console.log("Type ",localStorage.getItem('userType'))
     return localStorage.getItem('userType') === 'company';
 }
 export function isLoggedIn() {

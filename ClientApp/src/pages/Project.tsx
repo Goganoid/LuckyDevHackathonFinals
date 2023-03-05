@@ -35,8 +35,6 @@ export const Layout = styled.div`
     background-color: #FFFFFF;
 `;
 
-var ImgLink: string | null = "https://cdnb.artstation.com/p/assets/images/images/050/858/481/large/blake-rottinger-water-copy-web.jpg?1655857899";
-
 const ProjectBackground = styled.div`
     position: absolute;
     top: 0;
@@ -106,6 +104,8 @@ const Description = styled.div`
     }
 `;
 
+
+var ImgLink: string | null = "https://s.dou.ua/storage-files/shapka_privatbank2.jpg";
 
 const Project = () => {
     const { id } = useParams();
