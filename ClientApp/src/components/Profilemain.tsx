@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { getUserId, isCompany } from '../utils/storage';
 import { MoreButton } from './Cards/UserCard';
 import { Link } from 'react-router-dom';
-import { Button, Row, Tab, Table, Tabs } from 'react-bootstrap';
+import { Button, Tab, Table, Tabs } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 
@@ -58,7 +58,7 @@ export default function Profilemain() {
             if (response?.status === 200) {
                 setInbox({
                     ...inbox, invites: inbox!.invites.map(invite => {
-                        if (invite.id == inviteId) {
+                        if (invite.id === inviteId) {
                             invite.status = 0
                         };
                         return invite;
@@ -75,7 +75,7 @@ export default function Profilemain() {
             if (response?.status === 200) {
                 setInbox({
                     ...inbox, invites: inbox!.invites.map(invite => {
-                        if (invite.id == inviteId) {
+                        if (invite.id === inviteId) {
                             invite.status = 1
                         };
                         return invite;
@@ -89,13 +89,13 @@ export default function Profilemain() {
     }
 
     const checkStatus = (status: number) => {
-        if (status == 0) return 'Accepted';
-        if (status == 1) return 'Declined';
-        if (status == 2) return 'Unresponded';
+        if (status === 0) return 'Accepted';
+        if (status === 1) return 'Declined';
+        if (status === 2) return 'Unresponded';
         return '???';
     }
     return (
-        <MDBContainer fluid className='align-items-center justify-content-center w-75'>
+        <MDBContainer fluid className='align-items-center justify-content-center w-80'>
             <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
@@ -107,7 +107,7 @@ export default function Profilemain() {
             <MDBCardBody>
                 <h1 className='display-3 d-inline'><b>{`${userData?.firstName} ${userData?.lastName}`}</b></h1>
                 {
-                    id == getUserId() && !isCompany() ?
+                    id === getUserId() && !isCompany() ?
                     <Link to='/edit-profile'><MoreButton className="purple-btn mx-3">Edit</MoreButton></Link> : <></>
                 }
                 <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>
@@ -147,7 +147,7 @@ export default function Profilemain() {
                                 <div>
                                     Status: {checkStatus(invite.status)}
                                 </div>
-                                {invite.status == 2 && <div>
+                                {invite.status === 2 && <div>
                                     <Button variant="success" className='m-2' onClick={()=>accept(invite.id)}>Accept</Button>
                                     <Button variant="danger" className='m-2'  onClick={()=>decline(invite.id)}>Decline</Button>
                                 </div>}

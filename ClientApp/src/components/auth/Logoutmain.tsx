@@ -1,18 +1,5 @@
 import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
-// import styled from 'styled-components';
-
-// const ImgWrapper = styled.img`
-//     display: block;
-//     margin-left: auto;
-//     margin-right: auto;
-//     width: 50%;
-//     @media screen and (max-width: 420px) {
-//         &{
-//             width: 100%;
-//         }
-//     }
-// `;
 
 function Logoutmain() {
     const returnHome = () => {

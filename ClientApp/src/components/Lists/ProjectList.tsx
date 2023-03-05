@@ -1,7 +1,7 @@
 import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import ProjectCard from '../Cards/ProjectCard';
-import { ProjectApi, ProjectInformation } from '../../api/projects.service';
+import { ProjectApi } from '../../api/projects.service';
 import EmptyContent from '../EmptyContent';
 import { ProjectInfo } from '../../api/company.service';
 import { Filter } from '../Filter';

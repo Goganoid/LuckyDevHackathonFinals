@@ -1,13 +1,9 @@
 import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
-import { Tag, UserApi } from '../api/user.service'
 import { useEffect, useState } from 'react';
-import { Badge } from 'reactstrap';
-import { UserInformation } from '../api/user.service';
 import { getUserId } from '../utils/storage';
 import { CompanyApi, CompanyInformation } from '../api/company.service';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
 import { CreateProjectPopup } from './CreateProjectPopup';
 
 
@@ -26,7 +22,7 @@ export default function CompanyProfile() {
             console.log(CompanyInfoResponse.data);
             setCompanyData(CompanyInfoResponse.data);
         })
-    }, [])
+    }, [company])
 
     const refresh = () => {
         Promise.all([CompanyApi.GetCompanyInfo(company)]).then(responses => {
@@ -39,7 +35,7 @@ export default function CompanyProfile() {
     if (companyData == null) return <div>Loading...</div>;
     return (
         <>
-            <MDBContainer fluid className='align-items-center justify-content-center w-75'>
+            <MDBContainer fluid className='align-items-center justify-content-center w-80'>
                 <MDBCard className='MDBCard p-4 m-3'>
                     <MDBCardBody >
                         <h1 className='display-3'>{`${companyData.name}`}</h1>
