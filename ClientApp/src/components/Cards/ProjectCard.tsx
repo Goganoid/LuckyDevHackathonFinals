@@ -11,6 +11,7 @@ const CardWrapper = styled.div`
     margin-bottom: 20px;
     @media all and (max-width: 769px) {
       flex-direction: column;
+      align-items: center;
     }
 `;
 
@@ -19,6 +20,9 @@ const TextWrapper = styled.div`
 
     > h6 {
       color: gray;
+    }
+    @media all and (max-width: 769px) {
+      max-width: 100%;
     }
 `;
 
