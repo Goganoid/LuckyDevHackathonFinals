@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Candidate, CompanyApi, ProjectInfo, Vacancy } from "../api/company.service";
 import { ProjectApi } from "../api/projects.service";
 import { Footer, LightHeader as Header } from '../components';
-import { isCompany } from "../utils/storage";
+import { getUserId, isCompany } from "../utils/storage";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserApi } from "../api/user.service";
@@ -191,10 +191,10 @@ const Project = () => {
                                                 ? <Button className="purple-btn"
                                                 onClick={()=>respond(vacancy.id)}
                                                 >Respond!</Button>
-                                            : <Button className="purple-btn" onClick={() => {
+                                            : getUserId()==project.companyId? <Button className="purple-btn" onClick={() => {
                                                 setCurrentVacancy(vacancy);
                                                 setShowCandidates(true);
-                                            }}>Show Candidates</Button>}</p>
+                                            }}>Show Candidates</Button> : null}</p>
                                     <p>{vacancy.tags.map((skill) => (
                                         <Badge color="secondary" key={skill.id} className='m-2'>
                                             {`${skill.label}`}
@@ -217,6 +217,7 @@ const Project = () => {
                         <Modal.Title>Candidates</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                        {currentVacancy?.candidates.length===0 && <span>No candidates😢</span> }
                         {currentVacancy?.candidates.map(c => {
                             return <Row className={`flex-wrap ${currentVacancy.acceptedCandidate?.id===c.id ? 'text-success' : ''}`}>
                                 <p className="d-flex justify-content-between px-3">
