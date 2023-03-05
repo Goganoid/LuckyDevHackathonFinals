@@ -2,18 +2,16 @@ import { MDBInput } from 'mdb-react-ui-kit'
 import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Select from 'react-select';
-import { categoryOptions, convertToFilterList } from '../config/constants';
+import { toast } from 'react-toastify';
+import { CompanyApi } from '../api/company.service';
+import { convertToFilterList } from '../config/constants';
+import { errorToastOptions } from '../config/toastify.config';
+import { tags } from './Filter';
 
 export type PopupProps = {
     show: boolean,
     handleClose: () => void,
 }
-
-const tagOptions = [
-    'HTML',
-    'React',
-    '.NET'
-];
 
 export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
 
@@ -23,16 +21,15 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
         vacancyName: '',
         vacancyDescription: '',
         vacancyTags: [],
-        english: ''
+        englishLevel: ''
     });
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [vacancy, setVacancy] = useState([]);
     const [vacancyName, setVacancyName] = useState('');
     const [vacancyDescription, setVacancyDescription] = useState('');
-    const [vacancyTags, setVacancyTags] = useState([]);
-    const [english, setEnglish] = useState<string | null>(null);
+    const [vacancyTags, setVacancyTags] = useState<string[]>([]);
+    const [englishLevel, setEnglishLevel] = useState<string | null>(null);
 
     const handleTitle = (e: any) => {
         setTitle(e.target.value);
@@ -46,19 +43,6 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
     const handleVacancyDescription = (e: any) => {
         setVacancyDescription(e.target.value);
     };
-    const handleVacancyTags = (e: any) => {
-        const value = e.value;
-        // setVacancyTags({
-        //     ...newProject,
-        //     vacancyTags: value[]
-        // });
-    };
-    const handleAddVacancy = () => {
-        //setVacancy([]);
-    };
-    const handleSubmit = (e: any) => {
-        console.log(title, description, english);
-    };
 
     return (<Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -69,9 +53,9 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
             <MDBInput onChange={handleDescription} value={description} wrapperClass='mb-4' label='Your Description' size='lg' id='form2' type='text' />
 
             <Form.Select aria-label="Language level required"
-                value={english ?? "0"}
+                value={englishLevel ?? "0"}
                 onChange={(e) => {
-                setEnglish(e.target.value);
+                    setEnglishLevel(e.target.value);
             }}>
                 <option value="0">No English</option>
                 <option value="1">Beginner</option>
@@ -85,19 +69,41 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
             <MDBInput onChange={handleVacancyName} value={vacancyName} wrapperClass='mb-4' label='Your Vacancy' size='lg' id='form3' type='text' />
             <MDBInput onChange={handleVacancyDescription} value={vacancyDescription} wrapperClass='mb-4' label='Vacancy Description' size='lg' id='form4' type='text' />
             <Select
+                value={vacancyTags.length !== 0 ? convertToFilterList(vacancyTags) : null}
                 isMulti
-                options={convertToFilterList(categoryOptions)}
+                options={convertToFilterList(tags)}
                 isClearable={true}
                 isSearchable={true}
-                onChange={handleVacancyTags}
-            />
+                onChange={(newValue, { action }) => {
+                    if (action === 'select-option' || action === 'remove-value')
+                        setVacancyTags(newValue.map(v=>v.value));
+                    if (action === 'clear')
+                        setVacancyTags([]);
+                }} 
+                />
         </Modal.Body>
         <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
             <Button variant="primary" onClick={(e) => {
-                console.log(title, description, english, vacancyName, vacancyDescription, vacancyTags);
+                console.log(title, description, englishLevel, vacancyName, vacancyDescription, vacancyTags);
+                CompanyApi.CreateProject(title, description, englishLevel, vacancyName, vacancyDescription, vacancyTags).then(result => {
+                    if (result?.status === 200) {
+                        console.log('work');
+                        setNewProject({title: '', description: '', vacancyName: '',
+                            vacancyDescription: '', vacancyTags: [], englishLevel: ''
+                        });
+                    }
+                    else {
+                        const errorMessage = result?.data;
+                        if (errorMessage)
+                            toast.error(`Error:${errorMessage}`, errorToastOptions);
+                        else
+                            toast.error(`Error:${result?.status}`, errorToastOptions);
+                    }
+                    handleClose();
+                })
             }}>
                 Save Changes
             </Button>
