@@ -1,9 +1,11 @@
 import { MDBInput } from 'mdb-react-ui-kit'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { CompanyApi } from '../api/company.service';
+import { ProjectApi } from '../api/projects.service';
+import { Tag } from '../api/user.service';
 import { convertToFilterList } from '../config/constants';
 import { errorToastOptions } from '../config/toastify.config';
 import { tags } from './Filter';
@@ -13,7 +15,26 @@ export type PopupProps = {
     handleClose: () => void,
 }
 
+export interface VacancyRequest {
+    name: string;
+    tags: Tag[];
+}
+interface IProject {
+    title: string;
+    description: string;
+    englishLevel: number;
+    vaccancy: VacancyRequest[];
+}
+
 export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
+
+    const [allTags, setAllTags] = useState('');
+    useEffect(() => {
+        Promise.all([ProjectApi.GetTags()]).then(res => {
+            const [allTagsRes] = res;
+            setAllTags(allTagsRes.data);
+        });
+    }, [])
 
     const [newProject, setNewProject] = useState({
         title: '',

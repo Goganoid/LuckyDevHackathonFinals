@@ -54,6 +54,12 @@ class ProjectService extends BaseService {
         const data = await this.$http.get<ProjectInfo>(url);
         return data;
     }
+
+    public async GetTags(): Promise<AxiosResponse<any>>{
+        const url = `/tags`;
+        const data = await this.$http.get<any>(url);
+        return data;
+    }
 }
 
 export const ProjectApi = ProjectService.Instance;
