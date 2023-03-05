@@ -47,8 +47,8 @@ export default function UserList() {
             <Left>
                 <MDBContainer fluid className='align-items-center justify-content-center'>
                     <MDBCard className='MDBCard p-4 m-3'>
-                        <MDBCardBody>
-                            <ul>{listItems}</ul>
+                        <MDBCardBody className='d-flex flex-column-reverse'>
+                            {listItems}
                         </MDBCardBody>
                     </MDBCard>
                 </MDBContainer>
