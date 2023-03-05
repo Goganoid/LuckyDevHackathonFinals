@@ -9,6 +9,9 @@ const CardWrapper = styled.div`
     justify-content: space-between;
     border-bottom: 1px solid black;
     margin-bottom: 20px;
+    @media all and (max-width: 769px) {
+      flex-direction: column;
+    }
 `;
 
 const TextWrapper = styled.div`
