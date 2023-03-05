@@ -191,7 +191,7 @@ const Project = () => {
                                                 ? <Button className="purple-btn"
                                                 onClick={()=>respond(vacancy.id)}
                                                 >Respond!</Button>
-                                            : getUserId()==project.companyId? <Button className="purple-btn" onClick={() => {
+                                            : getUserId() === project.companyId? <Button className="purple-btn" onClick={() => {
                                                 setCurrentVacancy(vacancy);
                                                 setShowCandidates(true);
                                             }}>Show Candidates</Button> : null}</p>

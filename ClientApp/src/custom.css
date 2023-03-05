@@ -34,6 +34,9 @@ body {
 .mw-1k {
   min-width: 1000px !important;
 }
+.mw-300 {
+  min-width: 300px !important;
+}
 .xw-500 {
   max-width: 500px !important;
 }
@@ -77,7 +80,7 @@ code {
 }
 
 .dark-header {
-  background: #8639E8;
+  background: #8639E8 !important;
   user-select: none;
 }
 .dark-header a:is(:hover, :visited, :link, :active) {

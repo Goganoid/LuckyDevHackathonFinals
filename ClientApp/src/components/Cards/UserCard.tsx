@@ -12,6 +12,7 @@ const CardWrapper = styled.div`
     @media all and (max-width: 769px) {
       flex-direction: column;
       align-items: center;
+      padding: 10px 0;
     }
 `;
 

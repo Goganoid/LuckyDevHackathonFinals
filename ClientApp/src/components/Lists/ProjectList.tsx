@@ -12,13 +12,20 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     min-height: 700px;
-`
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+    }
+`;
 const Left = styled.div`
     flex-basis: 75%;
-`
+`;
 const Right = styled.div`
     flex-basis: 25%;
-`
+    @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+    }
+`;
 
 export default function ProjectList() {
     const [projects, setProjects] = useState<ProjectInfo[]>();

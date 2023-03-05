@@ -12,6 +12,7 @@ const CardWrapper = styled.div`
     @media all and (max-width: 769px) {
       flex-direction: column;
       align-items: center;
+      padding: 10px 0;
     }
 `;
 
@@ -23,6 +24,9 @@ const TextWrapper = styled.div`
     }
     @media all and (max-width: 769px) {
       max-width: 100%;
+      > h5 {
+        font-size: 16px;
+      }
     }
 `;
 
@@ -33,6 +37,11 @@ export const MoreButton = styled.button`
     background-color: #FFFFFF;
     border-radius: 10px;
     border: 1px solid #000;
+
+    @media all and (max-width: 769px) {
+      width: 80px;
+      height: 40px;
+    }
 `;
 
 interface IProjectCard {

@@ -58,7 +58,7 @@ export default function RegisterCompany() {
     }
   };
   return (
-    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
+    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image mw-300'>
       <div className='mask gradient-custom-3'></div>
       <MDBCard className='MDBCard w-40 xw-500'>
         <MDBCardBody className='px-5'>
