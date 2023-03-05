@@ -28,7 +28,7 @@ interface IProject {
 
 export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
 
-    const [allTags, setAllTags] = useState<Tag[]>();
+    const [allTags, setAllTags] = useState<Tag[]>([]);
     useEffect(() => {
         Promise.all([ProjectApi.GetTags()]).then(res => {
             const [allTagsRes] = res;
@@ -49,7 +49,7 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
     const [description, setDescription] = useState('');
     const [vacancyName, setVacancyName] = useState('');
     const [vacancyDescription, setVacancyDescription] = useState('');
-    const [vacancyTags, setVacancyTags] = useState<Tag[]>();
+    const [vacancyTags, setVacancyTags] = useState<Tag[]>([]);
     const [englishLevel, setEnglishLevel] = useState<string | null>(null);
 
     const handleTitle = (e: any) => {
@@ -90,12 +90,17 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
             <MDBInput onChange={handleVacancyName} value={vacancyName} wrapperClass='mb-4' label='Your Vacancy' size='lg' id='form3' type='text' />
             <MDBInput onChange={handleVacancyDescription} value={vacancyDescription} wrapperClass='mb-4' label='Vacancy Description' size='lg' id='form4' type='text' />
             <Select
-                value={vacancyTags?.length !== 0 ? vacancyTags?.map(t=>{label:t.label,value:t}) : null}
+                value={vacancyTags?.length !== 0 ? vacancyTags.map(t => {
+                    return { label: t.label, value: t}}) : null}
                 isMulti
-                options={allTags.map(t=>{label:t.label,value:t})}
+                options={allTags.map(t =>
+                {
+                    return { label: t.label, value: t }
+                })}
                 isClearable={true}
                 isSearchable={true}
                 onChange={(newValue, { action }) => {
+                    
                     if (action === 'select-option' || action === 'remove-value')
                         setVacancyTags(newValue.map(v=>v.value));
                     if (action === 'clear')
