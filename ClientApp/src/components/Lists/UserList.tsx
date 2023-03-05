@@ -11,6 +11,7 @@ import { Filter } from '../Filter';
 const Container = styled.div`
     display: flex;
     flex-direction: row;
+    min-height: 700px;
 `
 const Left = styled.div`
       flex-basis: 75%;
@@ -38,7 +39,7 @@ export default function UserList() {
     if(users==undefined) return <div>Loading...</div>
     const listItems = users.length === 0 ? <EmptyContent /> :
         users?.map((user: UserInformation, idx: number) => {
-            return <UserCard key={idx} id={idx + 1} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
+            return <UserCard key={idx} id={user.id} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
         }
         );
 
