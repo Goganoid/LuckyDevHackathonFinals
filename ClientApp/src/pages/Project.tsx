@@ -4,21 +4,11 @@ import { useParams } from "react-router-dom";
 import { Container, Button, Row, Badge } from "reactstrap";
 import styled from "styled-components";
 import { Candidate, CompanyApi, ProjectInfo, Vacancy } from "../api/company.service";
-import { ProjectApi, ProjectInformation } from "../api/projects.service";
+import { ProjectApi } from "../api/projects.service";
 import { Footer, LightHeader as Header } from '../components';
 import { isCompany } from "../utils/storage";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-export const Background = styled.div`
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-
-    background-color: #EDF7F8;
-`;
 
 export const Layout = styled.div`
     position: relative;
@@ -118,15 +108,15 @@ const Project = () => {
             console.log(result.data);
             setProject(result.data);
         })
-    }, [])
+    }, [id])
 
     const matchLanguage = (level: number) => {
-        if (level == 0) return 'No English';
-        if (level == 1) return 'Beginner';
-        if (level == 2) return 'Pre-Intermediate';
-        if (level == 3) return 'Intermediate';
-        if (level == 4) return 'Upper-Intermediate';
-        if (level == 5) return 'Advanced';
+        if (level === 0) return 'No English';
+        if (level === 1) return 'Beginner';
+        if (level === 2) return 'Pre-Intermediate';
+        if (level === 3) return 'Intermediate';
+        if (level === 4) return 'Upper-Intermediate';
+        if (level === 5) return 'Advanced';
         return 'Unknown';
     }
 
@@ -151,7 +141,6 @@ const Project = () => {
     if (project == null) return <div>Loading...</div>
     return (
         <>
-            <Background />
             <Header />
             <Layout>
                 {ImgLink === null ? <></> :
@@ -169,8 +158,9 @@ const Project = () => {
                         <span>{project.description}</span>
                     </Description>
                     <p><b>Project Creation Date: </b>{new Date(project.publicationDate).toLocaleString("en-US")}</p>
-                    <p><b>Language: </b>{matchLanguage(project.englishLevel)}</p>
+                    <p><b>English: </b>{matchLanguage(project.englishLevel)}</p>
                     <Container className="vacancy-list">
+                        <hr style={{width: '94%', margin: "20px 3%"}} />
                         <h5>Vacancies:</h5>
                         {project.vacancies.map(vacancy => {
                             return (
@@ -188,10 +178,14 @@ const Project = () => {
                                             {`${skill.label}`}
                                         </Badge>
                                     ))}</p>
+                                    <hr style={{width: '94%', margin: "0 3%"}} />
                                 </Row>
                             )
                         })}
                     </Container>
+                    <div className="d-flex flex-row-reverse">
+                        <Button className="white-btn" href='/projects'>Back</Button>
+                    </div>
                 </Info>
             </Layout>
             <Footer />
