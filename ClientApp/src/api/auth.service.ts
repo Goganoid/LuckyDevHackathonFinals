@@ -1,5 +1,6 @@
 import type { AxiosResponse } from "axios";
 import { BaseService } from "./base.service";
+import { AxiosError } from "axios";
 
 // This service is responsible for Login and Register actions
 
@@ -9,6 +10,17 @@ export type LoginResponse = {
     lastName: string;
     email: string;
     token: string;
+}
+
+export interface UserUpdate {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    tagIds?: number[];
+    cvLink?: string;
+    englishLevel?: number;
+    about?: string;
+    password?: string;
 }
 
 class AuthService extends BaseService {
@@ -78,6 +90,23 @@ class AuthService extends BaseService {
             }
         });
         return data;
+    }
+
+    public async UpdateUser(newuser: UserUpdate): Promise<AxiosResponse<any>|undefined>{
+        const url = `user/update/`;
+        try {
+            const data = await this.$http.put(url,JSON.stringify(newuser), {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            return data;
+        } catch (error: any | AxiosError) {
+            const err = error as AxiosError;
+            return err.response
+        }
+
+        
     }
   }
   

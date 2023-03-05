@@ -1,9 +1,11 @@
 import { MDBInput } from 'mdb-react-ui-kit'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { CompanyApi } from '../api/company.service';
+import { ProjectApi } from '../api/projects.service';
+import { Tag } from '../api/user.service';
 import { convertToFilterList } from '../config/constants';
 import { errorToastOptions } from '../config/toastify.config';
 import { tags } from './Filter';
@@ -13,7 +15,26 @@ export type PopupProps = {
     handleClose: () => void,
 }
 
+export interface VacancyRequest {
+    name: string;
+    tags: Tag[];
+}
+interface IProject {
+    title: string;
+    description: string;
+    englishLevel: number;
+    vaccancy: VacancyRequest[];
+}
+
 export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
+
+    const [allTags, setAllTags] = useState<Tag[]>([]);
+    useEffect(() => {
+        Promise.all([ProjectApi.GetTags()]).then(res => {
+            const [allTagsRes] = res;
+            setAllTags(allTagsRes.data);
+        });
+    }, [])
 
     const [newProject, setNewProject] = useState({
         title: '',
@@ -28,7 +49,7 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
     const [description, setDescription] = useState('');
     const [vacancyName, setVacancyName] = useState('');
     const [vacancyDescription, setVacancyDescription] = useState('');
-    const [vacancyTags, setVacancyTags] = useState<string[]>([]);
+    const [vacancyTags, setVacancyTags] = useState<Tag[]>([]);
     const [englishLevel, setEnglishLevel] = useState<string | null>(null);
 
     const handleTitle = (e: any) => {
@@ -69,12 +90,17 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
             <MDBInput onChange={handleVacancyName} value={vacancyName} wrapperClass='mb-4' label='Your Vacancy' size='lg' id='form3' type='text' />
             <MDBInput onChange={handleVacancyDescription} value={vacancyDescription} wrapperClass='mb-4' label='Vacancy Description' size='lg' id='form4' type='text' />
             <Select
-                value={vacancyTags.length !== 0 ? convertToFilterList(vacancyTags) : null}
+                value={vacancyTags?.length !== 0 ? vacancyTags.map(t => {
+                    return { label: t.label, value: t}}) : null}
                 isMulti
-                options={convertToFilterList(tags)}
+                options={allTags.map(t =>
+                {
+                    return { label: t.label, value: t }
+                })}
                 isClearable={true}
                 isSearchable={true}
                 onChange={(newValue, { action }) => {
+                    
                     if (action === 'select-option' || action === 'remove-value')
                         setVacancyTags(newValue.map(v=>v.value));
                     if (action === 'clear')
