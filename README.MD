@@ -1,4 +1,7 @@
 # LuckyDevFinals
+## Default logins
+User - john_doe@gmail.com // 123456
+Company - company_email@gmail.com // 123456
 ## Tech Stack
 Backend:
 - [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
