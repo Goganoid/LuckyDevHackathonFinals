@@ -150,7 +150,7 @@ const Project = () => {
     }
     const respond = (vacancyId: number)=>{
         UserApi.Apply(vacancyId).then(response => {
-            if (response?.status == 200) {
+            if (response?.status === 200) {
                 toast.success("Successfully applied!");
             }
             else {
