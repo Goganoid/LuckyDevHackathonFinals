@@ -50,8 +50,8 @@ class UserService extends BaseService {
         return data;
     }
 
-    public async GetUsers(): Promise<AxiosResponse<UserInformation[]>>{
-        const url = ``;
+    public async GetUsers(query:string|undefined = undefined): Promise<AxiosResponse<UserInformation[]>>{
+        const url = `?tagQuery=${query ?? ''}`;
         const data = await this.$http.get<UserInformation[]>(url);
         return data;
     }
