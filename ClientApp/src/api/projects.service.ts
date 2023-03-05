@@ -1,12 +1,19 @@
 import { AxiosError, type AxiosResponse } from "axios";
+import { Tag } from "reactstrap";
 import { isLoggedIn, getToken } from "../utils/storage";
 import { BaseService } from "./base.service";
 
+export interface Vacancy {
+    id: number;
+    name: string;
+    tags: Tag[];
+}
 export interface ProjectInformation {
     id: number,
     description: string,
     title: string,
-    englishLevel: number
+    englishLevel: number,
+    vacancies: Vacancy[]
 }
 
 // Service that handles all requests connected with user actions
