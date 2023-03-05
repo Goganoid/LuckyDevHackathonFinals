@@ -37,8 +37,7 @@ export default function ProjectList() {
             setProjects(ProjectsInfoResponse.data);
         });
     }
-    if(projects==undefined) return <div>Loading...</div>
-    const listItems = projects.length === 0 ? <EmptyContent /> :
+    const listItems = projects===undefined ?  <div>Loading...</div> : projects.length === 0 ? <EmptyContent /> :
         projects?.map((project: any, idx: number) => {
             return <ProjectCard key={idx} id={idx + 1} name={project.title} description={project.description} />
         }
