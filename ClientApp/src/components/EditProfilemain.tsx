@@ -6,27 +6,9 @@ import { MDBInput, MDBTextArea} from 'mdb-react-ui-kit';
 import { UserApi } from '../api/user.service';
 import { useEffect } from 'react';
 import { getUserId } from '../utils/storage';
-import Select from 'react-select'
-
-
-enum LanguageLevel
-{
-    NoEnglish,
-    Beginner,
-    PreIntermediate,
-    Intermediate,
-    UpperIntermediate,
-    Advanced
-}
-
-const options = [
-    { value: 0, label: 'NoEnglish' },
-    { value: 1, label: 'Beginner' },
-    { value: 2, label: 'PreIntermediate' },
-    { value: 3, label: 'Intermediate' },
-    { value: 4, label: 'UpperIntermediate' },
-    { value: 5, label: 'Advanced' }
-]
+import { Form, Button } from 'react-bootstrap';
+import { successToastOptions } from '../config/toastify.config';
+import { toast } from 'react-toastify';
 
 export default function EditProfilemain() {
     const [userData, setUserProfile] = useState<UserInformation>();
@@ -36,6 +18,7 @@ export default function EditProfilemain() {
     const [about, setAbout] = useState('');
     const [cvLink, setCVLink] = useState('');
     const [englishLevel, setEnglishLevel] = useState('');
+    const [skillTags, setSkillTags] = useState('');
 
     useEffect(() => {
         Promise.all([UserApi.GetUserInfo(`${getUserId()}`)]).then(responses => {
@@ -56,6 +39,7 @@ export default function EditProfilemain() {
             setAbout(`${UserInfoResponse.data.about}`)
             setCVLink(`${UserInfoResponse.data.cvLink}`)
             setEnglishLevel(`${UserInfoResponse.data.englishLevel}`)
+            setSkillTags(`${UserInfoResponse.data.skillTags}`)
         })
     }, [])
 
@@ -83,10 +67,11 @@ export default function EditProfilemain() {
         setCVLink(e.target.value);
     };
 
-    const handleEnglishLevel = (e: any) => {
-        setEnglishLevel(e.target.value);
-        console.log(englishLevel)
-    };
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        toast.info("Sending request...", successToastOptions);
+        console.log(e);
+    }
 
     return (
     <MDBContainer fluid className='align-items-center justify-content-center w-75'>
@@ -113,7 +98,20 @@ export default function EditProfilemain() {
                 <p className='display-6 m-3 mt-5'>My CV: {`${userData?.cvLink}`}</p>
                 <MDBInput wrapperClass='mb-4' onChange={handleCV} value={cvLink} placeholder='My CV' size='lg' id='form5'  />
                 <p className='display-6 m-3'>My English level: </p>
-                <Select options={options} onChange={handleEnglishLevel} />
+                <Form.Select aria-label="Language level required"
+                    value={englishLevel ?? "0"}
+                    onChange={(e) => {
+                    setEnglishLevel(e.target.value);
+                }}>
+                    <option value="0">No English</option>
+                    <option value="1">Beginner</option>
+                    <option value="2">Pre-Intermediate</option>
+                    <option value="3">Intermediate</option>
+                    <option value="4">Upper-Intermediate</option>
+                    <option value="5">Advanced</option>
+                </Form.Select>
+                <Button onClick={handleSubmit}
+                    className='my-4 w-100 Auth-Button' size='lg' variant='primary'>Confirm</Button>
             </MDBCardBody>
         </MDBCard>
     </MDBContainer>
