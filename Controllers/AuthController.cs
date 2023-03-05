@@ -182,15 +182,9 @@ public class AuthController : ControllerBase
             {
                 user.CvLink = requestDTO.CvLink;
             }
-            if (requestDTO.TagIds != null)
+            if (requestDTO.Tags != null)
             {
-                var newTags = requestDTO.TagIds.Select( id =>
-                {
-                    var tag = _context.Tags.Find(id);
-                    if (tag == null) throw new Exception($"Tag with given id {id} was not found");
-                    return tag;
-                }).ToList();
-                user.SkillTags = newTags;
+                user.SkillTags = requestDTO.Tags.Select(t=>_mapper.Map<Tag>(t)).ToList();
             }
             _context.Users.Update(user);
             _context.SaveChanges();
