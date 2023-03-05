@@ -4,12 +4,11 @@ import { Footer, DarkHeader as Header } from '../components';
 import { isCompany } from '../utils/storage';
 import CompanyProfile from '../components/CompanyProfile';
 
-const Profile: FunctionComponent<PropsWithChildren> = () => {
-  console.log(isCompany());
+const Profile = ({dataType}:{dataType:'company'|'user'}) => {
   return (
   <Fragment>
     <Header />
-    {isCompany() ? <CompanyProfile/> : <Profilemain /> }
+    {dataType==='company' ? <CompanyProfile/> : <Profilemain /> }
     <Footer />
   </Fragment>
 )};

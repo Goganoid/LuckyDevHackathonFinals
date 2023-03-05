@@ -42,7 +42,7 @@ const UserCard = ({id, name, skills}: IUserCard): JSX.Element => {
           <h3>{name}</h3>
           <h6>{userSkills}</h6>
       </TextWrapper>
-      <Link to={`/profile/${id}`}><MoreButton className="purple-btn">More</MoreButton></Link>
+      <Link to={`/profile/user/${id}`}><MoreButton className="purple-btn">More</MoreButton></Link>
     </CardWrapper>
   );
 }

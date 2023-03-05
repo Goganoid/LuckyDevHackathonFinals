@@ -8,7 +8,7 @@ import RedirectPage from "./pages/Redirect";
 import UsersPage from "./pages/UsersPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import EditProfile from "./pages/EditProfile";
-import CreateProject from "./pages/CreateProject";
+import Project from "./pages/Project";
 import Project from "./pages/Project";
 
 const AppRoutes = [
@@ -37,9 +37,14 @@ const AppRoutes = [
     element: <LogoutPage />
   },
   {
-    path: '/profile/:id',
+    path: '/profile/company/:id',
     index: true,
-    element: <Profile />
+    element: <Profile dataType="company"/>
+  },
+  {
+    path: '/profile/user/:id',
+    index: true,
+    element: <Profile dataType="user"/>
   },
   {
     path: '/edit-profile',
