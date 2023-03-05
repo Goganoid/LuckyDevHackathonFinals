@@ -25,7 +25,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateVacancyDTO,Vacancy>();
         CreateMap<CreateProjectRequestDTO, Project>();
         CreateMap<CreateReviewDTO, CompanyReview>();
-
+        CreateMap<NewTagDTO, Tag>();
         CreateMap<Invite, InviteDTO>()
             .ForMember(i => i.UserId,
                 options => options.MapFrom(i => i.User.Id))

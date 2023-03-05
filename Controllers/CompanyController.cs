@@ -42,6 +42,8 @@ public class CompanyController : ControllerBase
         if (id == null) return Unauthorized("Unauthorized");
         var company = await _context.Companies
             .Include(c=>c.Projects)
+            .ThenInclude(p=>p.Vacancies)
+            .ThenInclude(p=>p.Tags)
             .FirstOrDefaultAsync(c => c.Id == id);
         try
         {
@@ -49,7 +51,7 @@ public class CompanyController : ControllerBase
             var newProject = _mapper.Map<Project>(projectDTO);
             newProject.PublicationDate = DateTime.Now;
             company.Projects.Add(newProject);
-            _context.Companies.Update(company);
+            // _context.Companies.Update(company);
             _context.SaveChanges();
             return Ok();
         }

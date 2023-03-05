@@ -135,7 +135,7 @@ export default function Profilemain() {
             </MDBCardBody>
         </MDBCard>
                 </Tab>
-                <Tab eventKey="inbox" title="Inbox">
+                <Tab eventKey="inbox" title="Inbox" disabled={getUserId()!==id || isCompany()}>
                     <h2>Invites</h2>
                     {inbox?.invites.map((invite, idx) => {
                         return (
