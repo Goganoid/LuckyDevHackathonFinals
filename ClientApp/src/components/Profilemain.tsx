@@ -38,26 +38,26 @@ export default function Profilemain() {
                 cvLink: UserInfoResponse.data.cvLink
             })
         })
-    }, [])
+    }, [id])
 
     return (
     <MDBContainer fluid className='align-items-center justify-content-center w-75'>
         <MDBCard className='MDBCard p-4 m-3'>
             <MDBCardBody>
-                <h1 className='display-3 d-inline'>{`${userData?.firstName} ${userData?.lastName}`}</h1>
+                <h1 className='display-3 d-inline'><b>{`${userData?.firstName} ${userData?.lastName}`}</b></h1>
                 {
-                    id == getUserId() && !isCompany() ? 
+                    id === getUserId() && !isCompany() ? 
                     <Link to='/edit-profile'><MoreButton className="purple-btn mx-3">Edit</MoreButton></Link> : <></>
                 }
                 <h4 className='text-secondary lead'>{`${userData?.email}`}</h4>
                 <hr className='my-5' />
-                <h3 className='display-4 m-3'>About me:</h3>
+                <h3 className='display-4 m-3'><b>About me:</b></h3>
                 <MDBCard>
                     <MDBCardBody>
                         {`${userData?.about}`}
                     </MDBCardBody>
                 </MDBCard>
-                <h3 className='display-4 m-3 mt-5'>My skills: </h3>
+                <h3 className='display-4 m-3 mt-5'><b>My skills:</b></h3>
                 <MDBCard>
                     <MDBCardBody>
                         {userData?.skillTags.map((skill) => (
@@ -67,8 +67,10 @@ export default function Profilemain() {
                         ))}
                     </MDBCardBody>
                 </MDBCard>
-                <p className='display-6 m-3 mt-5'>My CV: {`${userData?.cvLink}`}</p>
-                <p className='display-6 m-3'>My English level: {`${LanguageLevel[userData?.englishLevel ? userData?.englishLevel : 0]}`}</p>
+                {userData?.cvLink !== "" ?
+                (<p className='display-6 m-3 mt-5'><b>My CV:</b> {`${userData?.cvLink}`}</p>) :
+                (<p className='display-6 m-3 mt-5'><b>My CV:</b> Not loaded</p>)}
+                <p className='display-6 m-3'><b>My English level:</b> {`${LanguageLevel[userData?.englishLevel ? userData?.englishLevel : 0]}`}</p>
             </MDBCardBody>
         </MDBCard>
     </MDBContainer>

@@ -14,10 +14,10 @@ const Container = styled.div`
     min-height: 700px;
 `
 const Left = styled.div`
-      flex-basis: 75%;
+    flex-basis: 75%;
 `
 const Right = styled.div`
-    flex-basis:25%;
+    flex-basis: 25%;
 `
 
 export default function ProjectList() {
@@ -37,7 +37,7 @@ export default function ProjectList() {
             setProjects(ProjectsInfoResponse.data);
         });
     }
-    if(projects==undefined) return <div>Loading...</div>
+    if(projects === undefined) return (<div>Loading...</div>);
     const listItems = projects.length === 0 ? <EmptyContent /> :
         projects?.map((project: any, idx: number) => {
             return <ProjectCard key={idx} id={idx + 1} name={project.title} description={project.description} />

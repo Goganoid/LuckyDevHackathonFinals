@@ -10,7 +10,7 @@ export interface UserInformation {
     skillTags: Tag[],
     about: string,
     englishLevel: number,
-    cvLink: string,
+    cvLink: string | "",
 }
 
 export interface Tag {

@@ -14,10 +14,10 @@ const Container = styled.div`
     min-height: 700px;
 `
 const Left = styled.div`
-      flex-basis: 75%;
+    flex-basis: 75%;
 `
 const Right = styled.div`
-    flex-basis:25%;
+    flex-basis: 25%;
 `
 
 export default function UserList() {
@@ -36,7 +36,7 @@ export default function UserList() {
             setUsers(UsersInfoResponse.data);
         });
     }
-    if(users==undefined) return <div>Loading...</div>
+    if(users === undefined) return (<div>Loading...</div>);
     const listItems = users.length === 0 ? <EmptyContent /> :
         users?.map((user: UserInformation, idx: number) => {
             return <UserCard key={idx} id={user.id} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
@@ -46,7 +46,7 @@ export default function UserList() {
     return (
         <Container>
             <Left>
-                <MDBContainer fluid className='align-items-center justify-content-center w-75'>
+                <MDBContainer fluid className='align-items-center justify-content-center'>
                     <MDBCard className='MDBCard p-4 m-3'>
                         <MDBCardBody>
                             <ul>{listItems}</ul>
