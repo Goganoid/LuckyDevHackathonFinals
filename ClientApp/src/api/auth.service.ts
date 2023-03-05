@@ -1,6 +1,7 @@
 import type { AxiosResponse } from "axios";
 import { BaseService } from "./base.service";
 import { AxiosError } from "axios";
+import { getToken, isLoggedIn } from "../utils/storage";
 
 // This service is responsible for Login and Register actions
 
@@ -28,7 +29,9 @@ class AuthService extends BaseService {
     private static _controller: string = 'Auth';
     
     private constructor(name: string) {
-      super(name);
+        super(name);
+        if (isLoggedIn())
+            this.$http.defaults.headers.common['Authorization'] = `bearer ${getToken()}`;
     }
   
     public static get Instance(): AuthService {

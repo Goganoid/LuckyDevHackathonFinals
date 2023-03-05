@@ -129,6 +129,7 @@ public class AuthController : ControllerBase
     /// </summary>
     /// <response code="200">Request successful</response>
     /// <response code="401">Unauthorized</response>
+    [Authorize]
     [HttpPut("update")]
     public IActionResult Update([FromBody] UserUpdateRequestDTO requestDTO)
     {

@@ -69,9 +69,12 @@ export default function EditProfilemain() {
     };
 
     const handleSubmit = (e: any) => {
-        e.preventDefault();
         toast.info("Sending request...", successToastOptions);
-        AuthApi.UpdateUser({firstName, lastName, email, skillTags, about, englishLevel, cvLink} as UserUpdate)
+        let request = { firstName, lastName, email, skillTags, about, englishLevel, cvLink } as UserUpdate;
+        console.log(request);
+        AuthApi.UpdateUser(request).then(result => {
+            console.log(result);
+        });
         window.location.href = `profile/user/${getUserId()}`;
     }
 
@@ -112,7 +115,7 @@ export default function EditProfilemain() {
                     <option value={4}>Upper-Intermediate</option>
                     <option value={5}>Advanced</option>
                 </Form.Select>
-                <Button onClick={handleSubmit}
+                <Button onClick={handleSubmit} type='button'
                     className='my-4 w-100 Auth-Button' size='lg' variant='primary'>Confirm</Button>
             </MDBCardBody>
         </MDBCard>
