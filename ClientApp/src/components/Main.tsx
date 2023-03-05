@@ -2,7 +2,7 @@ import { Button } from "reactstrap";
 import styled from "styled-components";
 
 const MainLayout = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     min-width: 100%;
     min-height: 100%;
@@ -22,17 +22,35 @@ const MainLayout = styled.div`
             animation-duration: 1s;
             animation-name: slidein;
         }
+        @media (max-width: 768px) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+        }
     }
 `;
 const SiteInfo = styled.span`
     display: block;
-    width: 100%;
+    max-width: 100%;
     margin: 20px;
 
     color: white;
     font-size: 32px;
     text-align: center;
     user-select: none;
+
+    @media (max-width: 900px) {
+        & {
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        & {
+            font-size: 18px;
+        }
+    }
 `;
 
 const Buttons = styled.div`
@@ -50,6 +68,13 @@ const Buttons = styled.div`
         padding: 10px 0;
 
         font-size: 24px;
+    }
+    @media (max-width: 768px) {
+        flex-direction: column;
+        a{
+            width: 100%;
+            font-size: 18px;
+        }
     }
 `;
 const Main = () => {
