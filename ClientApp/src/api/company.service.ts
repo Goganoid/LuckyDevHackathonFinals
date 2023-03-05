@@ -3,16 +3,26 @@ import { isLoggedIn, getToken, isCompany } from "../utils/storage";
 import { BaseService } from "./base.service";
 import { Tag, UserInformation } from "./user.service";
 
+export interface Candidate {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    skillTags: Tag[];
+    about: string;
+    englishLevel: number;
+    cvLink: string;
+}
 
 export interface Vacancy {
     id: number;
     name: string;
     tags: Tag[];
-    candidates: any[];
-    acceptedCandidate?: any;
+    candidates: Candidate[];
+    acceptedCandidate?: Candidate;
 }
 
-export interface Project {
+export interface ProjectInfo {
     id: number;
     companyId: number;
     description: string;
@@ -35,7 +45,7 @@ export interface CompanyInformation {
     id: number;
     email: string;
     about: string;
-    projects: Project[];
+    projects: ProjectInfo[];
     reviews: Review[];
 }
 
@@ -57,6 +67,19 @@ class CompanyService extends BaseService {
     public async GetCompanyInfo(companyId: string): Promise<AxiosResponse<CompanyInformation>>{
         const url = `${companyId}`;
         const data = await this.$http.get<CompanyInformation>(url);
+        return data;
+    }
+    public async AcceptCandidate(userId: number, vacancyId: number): Promise<AxiosResponse<any>>{
+        const url = `accept`;
+        const request = {
+            userId,
+            vacancyId
+        };
+        const data = await this.$http.post(url, JSON.stringify(request), {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
         return data;
     }
 }

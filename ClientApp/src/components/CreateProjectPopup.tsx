@@ -11,6 +11,7 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [vacancy, setVacancy] = useState([]);
     const [english, setEnglish] = useState<string | null>(null);
 
     const handleTitle = (e: any) => {
@@ -19,14 +20,20 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
     const handleDescription = (e: any) => {
         setDescription(e.target.value);
     };
+    const handleAddVacancy = () => {
+        //setVacancy([]);
+    };
+    const handleSubmit = (e: any) => {
+        console.log(title, description, english);
+    };
 
     return (<Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
             <Modal.Title>Create new project</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <MDBInput onChange={handleTitle} value={title} wrapperClass='mb-4' label='Your Email' size='lg' id='form2' type='email' />
-            <MDBInput onChange={handleTitle} value={title} wrapperClass='mb-4' label='Your Email' size='lg' id='form2' type='email' />
+            <MDBInput onChange={handleTitle} value={title} wrapperClass='mb-4' label='Your Title' size='lg' id='form1' type='text' />
+            <MDBInput onChange={handleDescription} value={description} wrapperClass='mb-4' label='Your Description' size='lg' id='form2' type='text' />
 
             <Form.Select aria-label="Language level required"
                 value={english ?? "0"}
@@ -45,7 +52,9 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={(e) => {
+                console.log(title, description, english);
+            }}>
                 Save Changes
             </Button>
         </Modal.Footer>
