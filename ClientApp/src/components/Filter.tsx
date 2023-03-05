@@ -25,7 +25,7 @@ export type FilterProps = {
 }
 
 
-const tags = [
+export const tags = [
     "JS",
     "React.js",
     ".NET",

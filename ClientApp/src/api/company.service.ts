@@ -82,6 +82,22 @@ class CompanyService extends BaseService {
         })
         return data;
     }
+    public async CreateProject(description : string, title : string, englishLevel: string, vacancies: Vacancy[]): Promise<AxiosResponse<any>> {
+        const url = `project-create`;
+        const request = {
+            description,
+            title,
+            englishLevel,
+            vacancies
+        }
+        console.log(request);
+        const data  = await this.$http.post(url,JSON.stringify(request), {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        return data;
+    }
 }
 
 export const CompanyApi = CompanyService.Instance;
