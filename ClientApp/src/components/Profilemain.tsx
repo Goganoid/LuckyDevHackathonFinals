@@ -9,7 +9,7 @@ import { MoreButton } from './Cards/UserCard';
 import { Link } from 'react-router-dom';
 import { Button, Tab, Table, Tabs } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-
+import Select from 'react-select';
 
 enum LanguageLevel {
     NoEnglish,
@@ -28,7 +28,6 @@ export default function Profilemain() {
     const [inbox, setInbox] = useState<Inbox>();
     const { id } = useParams();
     const [key, setKey] = useState('profile');
-
     useEffect(() => {
         Promise.all([UserApi.GetUserInfo(`${id}`)]).then(responses => {
             const [UserInfoResponse] = responses;
@@ -105,7 +104,13 @@ export default function Profilemain() {
                 <Tab eventKey="profile" title="Profile">
                 <MDBCard className='MDBCard p-4 m-3'>
             <MDBCardBody>
-                <h1 className='display-3 d-inline'><b>{`${userData?.firstName} ${userData?.lastName}`}</b></h1>
+                <div className='d-flex justify-content-between'>
+                                <h1 className='display-3 d-inline'><b>{`${userData?.firstName} ${userData?.lastName}`}</b></h1>
+                                <div>
+                                    <Select value={{value:"1",label:"My Company Project"}} />
+                                    <Select value={{value:"1",label:"Front end dev"}} />
+                                </div>
+                </div>
                 {
                     id === getUserId() && !isCompany() ?
                     <Link to='/edit-profile'><MoreButton className="purple-btn mx-3">Edit</MoreButton></Link> : <></>
@@ -135,7 +140,7 @@ export default function Profilemain() {
             </MDBCardBody>
         </MDBCard>
                 </Tab>
-                <Tab eventKey="inbox" title="Inbox" disabled={getUserId()!==id || isCompany()}>
+                <Tab eventKey="inbox" title="Inbox" disabled={getUserId()!==parseInt(id??'999') || isCompany()}>
                     <h2>Invites</h2>
                     {inbox?.invites.map((invite, idx) => {
                         return (
