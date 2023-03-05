@@ -27,6 +27,15 @@ export default function CompanyProfile() {
             setCompanyData(CompanyInfoResponse.data);
         })
     }, [])
+
+    const refresh = () => {
+        Promise.all([CompanyApi.GetCompanyInfo(company)]).then(responses => {
+            const [CompanyInfoResponse] = responses;
+            console.log(CompanyInfoResponse.data);
+            setCompanyData(CompanyInfoResponse.data);
+        });
+    }
+
     if (companyData == null) return <div>Loading...</div>;
     return (
         <>
@@ -63,7 +72,7 @@ export default function CompanyProfile() {
                     </MDBCardBody>
                 </MDBCard>
             </MDBContainer>
-            <CreateProjectPopup show={show} handleClose={handleClose} />
+            <CreateProjectPopup show={show} handleClose={handleClose} refresh={refresh} />
         </>
     )
 }

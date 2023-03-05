@@ -3,21 +3,27 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
-import { CompanyApi } from '../api/company.service';
+import { CompanyApi, NewProjectRequest } from '../api/company.service';
 import { ProjectApi } from '../api/projects.service';
 import { Tag } from '../api/user.service';
 import { convertToFilterList } from '../config/constants';
 import { errorToastOptions } from '../config/toastify.config';
 import { tags } from './Filter';
 
+
+export interface SpecialTag{
+    label:string
+}
+
 export type PopupProps = {
     show: boolean,
     handleClose: () => void,
+    refresh: ()=>void
 }
 
 export interface VacancyRequest {
     name: string;
-    tags: Tag[];
+    tags: SpecialTag[];
 }
 interface IProject {
     title: string;
@@ -26,13 +32,13 @@ interface IProject {
     vaccancy: VacancyRequest[];
 }
 
-export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
+export const CreateProjectPopup = ({ show, handleClose,refresh }: PopupProps) => {
 
-    const [allTags, setAllTags] = useState<Tag[]>([]);
+    const [allTags, setAllTags] = useState<SpecialTag[]>([]);
     useEffect(() => {
         Promise.all([ProjectApi.GetTags()]).then(res => {
             const [allTagsRes] = res;
-            setAllTags(allTagsRes.data);
+            setAllTags(allTagsRes.data.map((t:any) => {return {label:t.label } as SpecialTag} ));
         });
     }, [])
 
@@ -47,9 +53,10 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [vacancyName, setVacancyName] = useState('');
-    const [vacancyDescription, setVacancyDescription] = useState('');
-    const [vacancyTags, setVacancyTags] = useState<Tag[]>([]);
+    const [vacancies, setVacancies] = useState<VacancyRequest[]>([{
+        name: '',
+        tags: []
+    }]);
     const [englishLevel, setEnglishLevel] = useState<string | null>(null);
 
     const handleTitle = (e: any) => {
@@ -57,12 +64,6 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
     };
     const handleDescription = (e: any) => {
         setDescription(e.target.value);
-    };
-    const handleVacancyName = (e: any) => {
-        setVacancyName(e.target.value);
-    };
-    const handleVacancyDescription = (e: any) => {
-        setVacancyDescription(e.target.value);
     };
 
     return (<Modal show={show} onHide={handleClose}>
@@ -77,7 +78,7 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
                 value={englishLevel ?? "0"}
                 onChange={(e) => {
                     setEnglishLevel(e.target.value);
-            }}>
+                }}>
                 <option value="0">No English</option>
                 <option value="1">Beginner</option>
                 <option value="2">Pre-Intermediate</option>
@@ -87,39 +88,67 @@ export const CreateProjectPopup = ({ show, handleClose }: PopupProps) => {
             </Form.Select>
             <br />
             <br />
-            <MDBInput onChange={handleVacancyName} value={vacancyName} wrapperClass='mb-4' label='Your Vacancy' size='lg' id='form3' type='text' />
-            <MDBInput onChange={handleVacancyDescription} value={vacancyDescription} wrapperClass='mb-4' label='Vacancy Description' size='lg' id='form4' type='text' />
-            <Select
-                value={vacancyTags?.length !== 0 ? vacancyTags.map(t => {
-                    return { label: t.label, value: t}}) : null}
-                isMulti
-                options={allTags.map(t =>
-                {
-                    return { label: t.label, value: t }
-                })}
-                isClearable={true}
-                isSearchable={true}
-                onChange={(newValue, { action }) => {
-                    
-                    if (action === 'select-option' || action === 'remove-value')
-                        setVacancyTags(newValue.map(v=>v.value));
-                    if (action === 'clear')
-                        setVacancyTags([]);
-                }} 
-                />
+            {
+                vacancies.map((v, idx) => {
+                    return (
+                        <div key={idx} className='mb-4'>
+                            <MDBInput onChange={(e) => {
+                                let newVac = [...vacancies];
+                                newVac[idx].name = e.target.value;
+                                setVacancies(newVac);
+                            }} value={v.name} wrapperClass='mb-1' label='Vacancy name' size='lg' id='form2' type='text' />
+                            <Select
+                                value={v.tags.length !== 0 ? v.tags.map(t => {
+                                    return { label: t.label, value: t }
+                                }) : null}
+                                isMulti
+                                options={allTags.map(t => {
+                                    return { label: t.label, value: t }
+                                })}
+                                isClearable={true}
+                                isSearchable={true}
+                                onChange={(newValue, { action }) => {
+
+                                    if (action === 'select-option' || action === 'remove-value') {
+                                        let newVac = [...vacancies];
+                                        newVac[idx].tags = newValue.map(nv => nv.value);
+                                        setVacancies(newVac);
+                                    }
+                                    if (action === 'clear') {
+                                        let newVac = [...vacancies];
+                                        newVac[idx].tags = newValue.map(nv => nv.value);
+                                        setVacancies(newVac);
+                                    }
+                                }}
+                            />
+                        </div>
+                    )
+                })
+            }
+            <Button onClick={() => {
+                setVacancies([...vacancies,{
+                    name: '',
+                    tags: []
+                }])
+            }}>Add another vacancy</Button>
         </Modal.Body>
         <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
             <Button variant="primary" onClick={(e) => {
-                console.log(title, description, englishLevel, vacancyName, vacancyDescription, vacancyTags);
-                CompanyApi.CreateProject(title, description, englishLevel, vacancyName, vacancyDescription, vacancyTags).then(result => {
+                var request = {
+                    description,
+                    englishLevel: parseInt(englishLevel ?? '0'),
+                    title,
+                    vacancies,
+
+                } as NewProjectRequest;
+                console.log(request);
+                CompanyApi.CreateProject(request).then(result => {
                     if (result?.status === 200) {
                         console.log('work');
-                        setNewProject({title: '', description: '', vacancyName: '',
-                            vacancyDescription: '', vacancyTags: [], englishLevel: ''
-                        });
+                        refresh();
                     }
                     else {
                         const errorMessage = result?.data;

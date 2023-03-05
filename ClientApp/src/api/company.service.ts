@@ -50,6 +50,19 @@ export interface CompanyInformation {
 }
 
 
+export interface VacancyRequest {
+    name: string;
+    tags: Tag[];
+}
+
+export interface NewProjectRequest {
+    description: string;
+    title: string;
+    englishLevel: number;
+    vacancies: VacancyRequest[];
+}
+
+
 
 class CompanyService extends BaseService {
     private static _sampleService: CompanyService;
@@ -82,16 +95,10 @@ class CompanyService extends BaseService {
         })
         return data;
     }
-    public async CreateProject(description : string, title : string, englishLevel: string, vacancies: Vacancy[]): Promise<AxiosResponse<any>> {
+    public async CreateProject(newProject:NewProjectRequest): Promise<AxiosResponse<any>> {
         const url = `project-create`;
-        const request = {
-            description,
-            title,
-            englishLevel,
-            vacancies
-        }
-        console.log(request);
-        const data  = await this.$http.post(url,JSON.stringify(request), {
+        console.log(newProject);
+        const data  = await this.$http.post(url,JSON.stringify(newProject), {
             headers: {
                 'Content-Type': 'application/json',
             }
