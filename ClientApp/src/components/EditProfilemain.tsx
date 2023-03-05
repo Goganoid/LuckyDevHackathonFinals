@@ -6,6 +6,7 @@ import { MDBInput, MDBTextArea} from 'mdb-react-ui-kit';
 import { UserApi } from '../api/user.service';
 import { useEffect } from 'react';
 import { getUserId } from '../utils/storage';
+import Select from 'react-select'
 
 
 enum LanguageLevel
@@ -18,6 +19,15 @@ enum LanguageLevel
     Advanced
 }
 
+const options = [
+    { value: 0, label: 'NoEnglish' },
+    { value: 1, label: 'Beginner' },
+    { value: 2, label: 'PreIntermediate' },
+    { value: 3, label: 'Intermediate' },
+    { value: 4, label: 'UpperIntermediate' },
+    { value: 5, label: 'Advanced' }
+]
+
 export default function EditProfilemain() {
     const [userData, setUserProfile] = useState<UserInformation>();
     const [firstName, setFirstName] = useState('');
@@ -25,6 +35,7 @@ export default function EditProfilemain() {
     const [email, setEmail] = useState('');
     const [about, setAbout] = useState('');
     const [cvLink, setCVLink] = useState('');
+    const [englishLevel, setEnglishLevel] = useState('');
 
     useEffect(() => {
         Promise.all([UserApi.GetUserInfo(`${getUserId()}`)]).then(responses => {
@@ -44,6 +55,7 @@ export default function EditProfilemain() {
             setEmail(`${UserInfoResponse.data.email}`)
             setAbout(`${UserInfoResponse.data.about}`)
             setCVLink(`${UserInfoResponse.data.cvLink}`)
+            setEnglishLevel(`${UserInfoResponse.data.englishLevel}`)
         })
     }, [])
 
@@ -71,6 +83,11 @@ export default function EditProfilemain() {
         setCVLink(e.target.value);
     };
 
+    const handleEnglishLevel = (e: any) => {
+        setEnglishLevel(e.target.value);
+        console.log(englishLevel)
+    };
+
     return (
     <MDBContainer fluid className='align-items-center justify-content-center w-75'>
         <MDBCard className='MDBCard p-4 m-3'>
@@ -95,7 +112,8 @@ export default function EditProfilemain() {
                 </MDBCard>
                 <p className='display-6 m-3 mt-5'>My CV: {`${userData?.cvLink}`}</p>
                 <MDBInput wrapperClass='mb-4' onChange={handleCV} value={cvLink} placeholder='My CV' size='lg' id='form5'  />
-                <p className='display-6 m-3'>My English level: {`${LanguageLevel[userData?.englishLevel ? userData?.englishLevel : 0]}`}</p>
+                <p className='display-6 m-3'>My English level: </p>
+                <Select options={options} onChange={handleEnglishLevel} />
             </MDBCardBody>
         </MDBCard>
     </MDBContainer>
