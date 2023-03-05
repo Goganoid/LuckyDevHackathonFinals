@@ -55,6 +55,18 @@ class UserService extends BaseService {
         const data = await this.$http.get<UserInformation[]>(url);
         return data;
     }
+
+    public async Apply(vacancyId: number): Promise<AxiosResponse<any>|undefined>{
+        const url = `apply/${vacancyId}`;
+        try {
+            const data = await this.$http.post(url);
+            return data;
+        }
+        catch (error: any | AxiosError) {
+            const err = error as AxiosError;
+            return err.response;
+        }
+    }
 }
 
 export const UserApi = UserService.Instance;

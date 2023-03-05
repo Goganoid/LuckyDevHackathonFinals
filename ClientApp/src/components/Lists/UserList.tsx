@@ -21,7 +21,7 @@ const Right = styled.div`
 `
 
 export default function UserList() {
-    const [users, setUsers] = useState<UserInformation[]>([]);
+    const [users, setUsers] = useState<UserInformation[]>();
     useEffect(() => {
         Promise.all([UserApi.GetUsers()]).then(res => {
             const [UsersInfoResponse] = res;
@@ -36,8 +36,7 @@ export default function UserList() {
             setUsers(UsersInfoResponse.data);
         });
     }
-    if(users === undefined) return (<div>Loading...</div>);
-    const listItems = users.length === 0 ? <EmptyContent /> :
+    const listItems = users===undefined ? <div>Loading...</div>: users.length === 0 ? <EmptyContent /> :
         users?.map((user: UserInformation, idx: number) => {
             return <UserCard key={idx} id={user.id} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
         }

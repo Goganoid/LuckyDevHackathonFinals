@@ -9,6 +9,17 @@ import { Footer, LightHeader as Header } from '../components';
 import { isCompany } from "../utils/storage";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserApi } from "../api/user.service";
+export const Background = styled.div`
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    background-color: #EDF7F8;
+`;
 
 export const Layout = styled.div`
     position: relative;
@@ -137,7 +148,16 @@ const Project = () => {
             }
         })
     }
-
+    const respond = (vacancyId: number)=>{
+        UserApi.Apply(vacancyId).then(response => {
+            if (response?.status == 200) {
+                toast.success("Successfully applied!");
+            }
+            else {
+                toast.error(response?.data);
+            }
+        })
+    }
     if (project == null) return <div>Loading...</div>
     return (
         <>
@@ -168,7 +188,9 @@ const Project = () => {
                                     <p className="d-flex justify-content-between px-3"><b>{vacancy.name}</b>
                                         {vacancy.acceptedCandidate != null ? <Link to={`/profile/user/${vacancy.acceptedCandidate.id}`}>{`${vacancy.acceptedCandidate.firstName} ${vacancy.acceptedCandidate.lastName}`}</Link>
                                             : !isCompany()
-                                            ? <Button className="purple-btn">Respond!</Button>
+                                                ? <Button className="purple-btn"
+                                                onClick={()=>respond(vacancy.id)}
+                                                >Respond!</Button>
                                             : <Button className="purple-btn" onClick={() => {
                                                 setCurrentVacancy(vacancy);
                                                 setShowCandidates(true);
