@@ -2,6 +2,7 @@ import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 import ProjectCard from '../Cards/ProjectCard';
 import { ProjectApi, ProjectInformation } from '../../api/projects.service';
+import EmptyContent from '../EmptyContent';
 
 export default function ProjectList() {
     const [projects, setProjects] = useState <ProjectInformation[]>([]);
@@ -12,7 +13,8 @@ export default function ProjectList() {
         });
     }, [])
 
-    const listItems = projects?.map((project: any, idx: number) => {
+    const listItems = projects.length === 0 ? <EmptyContent /> :
+    projects?.map((project: any, idx: number) => {
         return <ProjectCard key={idx} id={idx+1} name={project.name} description={project.description} />
     }
     );

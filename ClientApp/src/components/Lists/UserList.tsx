@@ -3,6 +3,7 @@ import { UserApi } from '../../api/user.service'
 import { useEffect, useState } from 'react';
 import UserCard from '../Cards/UserCard';
 import { UserInformation, Tag } from '../../api/user.service';
+import EmptyContent from '../EmptyContent';
 
 export default function UserList() {
     const [users, setUsers] = useState <UserInformation[]>([]);
@@ -13,7 +14,8 @@ export default function UserList() {
         });
     }, [])
 
-    const listItems = users?.map((user: UserInformation, idx: number) => {
+    const listItems = users.length === 0 ? <EmptyContent /> :
+    users?.map((user: UserInformation, idx: number) => {
         return <UserCard key={idx} id={idx+1} name={user.firstName} skills={user.skillTags.map((e: Tag) => e.label)} />
     }
     );

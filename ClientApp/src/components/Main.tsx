@@ -8,7 +8,7 @@ const MainLayout = styled.div`
     min-height: 100%;
     z-index: -2;
 
-    background: linear-gradient(10deg, #6D5BDA 30%, #644FE7, #8639E8 80%);
+    background: linear-gradient(10deg, #7b5be6 0%, #5a75d8 34%, #8639e8 80%);
     > div {
         position: absolute;
         width: 60%;
@@ -41,12 +41,15 @@ const Buttons = styled.div`
     padding: 0 15%;
     display: flex;
     justify-content: space-between;
-    > button {
-        color: black;
-        background-color: white;
-        font-size: 24px;
+    a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 40%;
         max-width: 400px;
+        padding: 10px 0;
+
+        font-size: 24px;
     }
 `;
 const Main = () => {
@@ -56,8 +59,8 @@ const Main = () => {
                 <SiteInfo>Thanks to LuckyDevFinals, you will be able to find a job with a dream team to work with in a very short time!</SiteInfo>
                 <SiteInfo>We guarantee!😉</SiteInfo>
                 <Buttons>
-                    <Button>Create project</Button>
-                    <Button>Find a job</Button>
+                    <Button className="white-btn" href='/new-project'>Create project</Button>
+                    <Button className="white-btn" href='/projects'>Find a job</Button>
                 </Buttons>
             </div>
         </MainLayout>

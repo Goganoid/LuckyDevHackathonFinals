@@ -9,6 +9,7 @@ import UsersPage from "./pages/UsersPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import EditProfile from "./pages/EditProfile";
 import CreateProject from "./pages/CreateProject";
+import Project from "./pages/Project";
 
 const AppRoutes = [
   {

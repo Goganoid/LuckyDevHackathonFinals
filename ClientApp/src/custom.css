@@ -84,3 +84,12 @@ code {
   color: #000000 !important;
   border-color: #000000 !important;
 }
+
+.white-btn {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+.white-btn:is(:hover, :focus) {
+  background-color: #ececec !important;
+  border-color: #000000 !important;
+}
