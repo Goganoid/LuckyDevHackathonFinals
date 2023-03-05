@@ -14,7 +14,7 @@
 }
 
 body {
-  background-color: #EDF7F8;
+  background-color: #f1f9fa;
   font-family: 'Nunito Sans', sans-serif;
 }
 
@@ -132,4 +132,13 @@ code {
 }
 .white-btn:is(:hover, :focus) {
   background-color: hsl(0, 0%, 90%) !important;
+}
+
+@media (max-width: 768px) {
+  .vacancy-list > .row {
+    margin: 0;
+  }
+  .vacancy-list > h5 {
+    font-size: 18px;
+  }
 }

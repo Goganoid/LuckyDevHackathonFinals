@@ -39,7 +39,7 @@ export default function Loginmain() {
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
       <div className='mask gradient-custom-3'></div>
-      <MDBCard className='MDBCard w-40 xw-500'>
+      <MDBCard className='MDBCard w-40 xw-500 mw-300'>
         <MDBCardBody className='px-5'>
           <h2 className="text-uppercase text-center mb-5">Sign in your account</h2>
           <MDBInput onChange={handleEmail} value={email} wrapperClass='mb-4' label='Your Email' size='lg' id='form2' type='email' />

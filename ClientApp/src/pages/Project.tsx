@@ -79,6 +79,10 @@ const Info = styled.div`
     z-index: 3;
     > p {
         margin: 0 5%;
+        
+        @media (max-width: 768px) {
+            font-size: 14px;
+        }
     }
 `;
 
@@ -89,18 +93,29 @@ export const Title = styled.span`
     font-size: 36px;
     border-bottom: 1px solid #ced4da;
     text-align: center;
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
 `;
 
 const Description = styled.div`
     margin: 20px 0;
     > h5 {
         margin: 0 10%;
+        
+        @media (max-width: 768px) {
+            font-size: 18px;
+        }
     }
     > span {
         display: block;
         width: 100%;
         padding: 10px;
         border-radius: 10px;
+        
+        @media (max-width: 768px) {
+            font-size: 14px;
+        }
     }
 `;
 

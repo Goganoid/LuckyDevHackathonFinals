@@ -7,7 +7,7 @@ export default function Redirect() {
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image mt-3'>
       <div className='mask gradient-custom-3'></div>
-      <MDBCard className='MDBCard w-40 xw-500'>
+      <MDBCard className='MDBCard w-40 xw-500 mw-300'>
         <MDBCardBody className='px-5'>
           <h2 className="text-uppercase text-center mb-5">Choose type of registration</h2>
           <Link to="/user/register"><Button

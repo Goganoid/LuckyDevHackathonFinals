@@ -8,6 +8,9 @@ const BrandContent = styled.div`
   font-family: Inter;
   font-style: italic;
   word-spacing: 0.05rem;
+  img {
+    aspect-ratio: 1 / 1;
+  }
 `;
 
 const StyledFooter = styled.footer`
