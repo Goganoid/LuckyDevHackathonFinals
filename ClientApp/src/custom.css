@@ -10,6 +10,10 @@
   border-radius: 5px;
 }
 
+body {
+  background-color: #EDF7F8;
+}
+
 
 .w-80 {
   width: 80% !important;

@@ -1,6 +1,6 @@
 import { Button, Form, Input, Label } from "reactstrap";
 import styled from "styled-components";
-import { Background, Layout, Title } from './Project';
+import { Layout, Title } from './Project';
 import { LightHeader as Header } from "../components";
 
 const Block = styled.div`
@@ -56,7 +56,6 @@ const Buttons = styled.div`
 const CreateProject = () => {
     return (
         <>
-            <Background />
             <Header />
             <Layout>
                 <Title>Create new project</Title>

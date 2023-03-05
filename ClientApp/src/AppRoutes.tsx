@@ -8,7 +8,6 @@ import RedirectPage from "./pages/Redirect";
 import UsersPage from "./pages/UsersPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import EditProfile from "./pages/EditProfile";
-import ProjectInfo from "./pages/Project";
 import Project from "./pages/Project";
 
 const AppRoutes = [

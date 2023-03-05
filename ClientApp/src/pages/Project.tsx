@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import { Container, Button, Row, Badge } from "reactstrap";
 import styled from "styled-components";
 import { Candidate, CompanyApi, ProjectInfo, Vacancy } from "../api/company.service";
-import { ProjectApi, ProjectInformation } from "../api/projects.service";
+import { ProjectApi } from "../api/projects.service";
 import { Footer, LightHeader as Header } from '../components';
 import { isCompany } from "../utils/storage";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserApi } from "../api/user.service";
 export const Background = styled.div`
     position: fixed;
     left: 0;
@@ -118,15 +119,15 @@ const Project = () => {
             console.log(result.data);
             setProject(result.data);
         })
-    }, [])
+    }, [id])
 
     const matchLanguage = (level: number) => {
-        if (level == 0) return 'No English';
-        if (level == 1) return 'Beginner';
-        if (level == 2) return 'Pre-Intermediate';
-        if (level == 3) return 'Intermediate';
-        if (level == 4) return 'Upper-Intermediate';
-        if (level == 5) return 'Advanced';
+        if (level === 0) return 'No English';
+        if (level === 1) return 'Beginner';
+        if (level === 2) return 'Pre-Intermediate';
+        if (level === 3) return 'Intermediate';
+        if (level === 4) return 'Upper-Intermediate';
+        if (level === 5) return 'Advanced';
         return 'Unknown';
     }
 
@@ -147,11 +148,19 @@ const Project = () => {
             }
         })
     }
-
+    const respond = (vacancyId: number)=>{
+        UserApi.Apply(vacancyId).then(response => {
+            if (response?.status == 200) {
+                toast.success("Successfully applied!");
+            }
+            else {
+                toast.error(response?.data);
+            }
+        })
+    }
     if (project == null) return <div>Loading...</div>
     return (
         <>
-            <Background />
             <Header />
             <Layout>
                 {ImgLink === null ? <></> :
@@ -169,8 +178,9 @@ const Project = () => {
                         <span>{project.description}</span>
                     </Description>
                     <p><b>Project Creation Date: </b>{new Date(project.publicationDate).toLocaleString("en-US")}</p>
-                    <p><b>Language: </b>{matchLanguage(project.englishLevel)}</p>
+                    <p><b>English: </b>{matchLanguage(project.englishLevel)}</p>
                     <Container className="vacancy-list">
+                        <hr style={{width: '94%', margin: "20px 3%"}} />
                         <h5>Vacancies:</h5>
                         {project.vacancies.map(vacancy => {
                             return (
@@ -178,7 +188,9 @@ const Project = () => {
                                     <p className="d-flex justify-content-between px-3"><b>{vacancy.name}</b>
                                         {vacancy.acceptedCandidate != null ? <Link to={`/profile/user/${vacancy.acceptedCandidate.id}`}>{`${vacancy.acceptedCandidate.firstName} ${vacancy.acceptedCandidate.lastName}`}</Link>
                                             : !isCompany()
-                                            ? <Button className="purple-btn">Respond!</Button>
+                                                ? <Button className="purple-btn"
+                                                onClick={()=>respond(vacancy.id)}
+                                                >Respond!</Button>
                                             : <Button className="purple-btn" onClick={() => {
                                                 setCurrentVacancy(vacancy);
                                                 setShowCandidates(true);
@@ -188,10 +200,14 @@ const Project = () => {
                                             {`${skill.label}`}
                                         </Badge>
                                     ))}</p>
+                                    <hr style={{width: '94%', margin: "0 3%"}} />
                                 </Row>
                             )
                         })}
                     </Container>
+                    <div className="d-flex flex-row-reverse">
+                        <Button className="white-btn" href='/projects'>Back</Button>
+                    </div>
                 </Info>
             </Layout>
             <Footer />

@@ -1,5 +1,5 @@
 import { MDBInput } from 'mdb-react-ui-kit'
-import React, { ReactElement, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Select from 'react-select';
 import { categoryOptions, convertToFilterList } from '../config/constants';

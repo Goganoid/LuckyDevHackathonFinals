@@ -43,8 +43,8 @@ class ProjectService extends BaseService {
         }
     }
 
-    public async GetProjects(): Promise<AxiosResponse<ProjectInfo[]>>{
-        const url = ``;
+    public async GetProjects(query:string|undefined = undefined): Promise<AxiosResponse<ProjectInfo[]>>{
+        const url = `?tagQuery=${query ?? ''}`;
         const data = await this.$http.get<ProjectInfo[]>(url);
         return data;
     }
