@@ -60,7 +60,7 @@ export default function RegisterCompany() {
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
       <div className='mask gradient-custom-3'></div>
-      <MDBCard className='MDBCard'>
+      <MDBCard className='MDBCard w-40 xw-500'>
         <MDBCardBody className='px-5'>
           <h2 className="text-uppercase text-center mb-5">Create an account</h2>
           <MDBInput onChange={handleName} value={name} wrapperClass='mb-4' label='Your company name' size='lg' id='form1' type='text' />

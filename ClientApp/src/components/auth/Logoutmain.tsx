@@ -1,18 +1,18 @@
 import { MDBCard, MDBCardBody, MDBContainer } from 'mdb-react-ui-kit';
 import { Button } from 'react-bootstrap';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const ImgWrapper = styled.img`
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    @media screen and (max-width: 420px) {
-        &{
-            width: 100%;
-        }
-    }
-`;
+// const ImgWrapper = styled.img`
+//     display: block;
+//     margin-left: auto;
+//     margin-right: auto;
+//     width: 50%;
+//     @media screen and (max-width: 420px) {
+//         &{
+//             width: 100%;
+//         }
+//     }
+// `;
 
 function Logoutmain() {
     const returnHome = () => {
@@ -28,7 +28,7 @@ function Logoutmain() {
     return (
         <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
         <div className='mask gradient-custom-3'></div>
-        <MDBCard className='MDBCard'>
+        <MDBCard className='MDBCard w-40 xw-500'>
             <MDBCardBody className='px-5'>
             <h3 className="text-uppercase text-center mb-5">Oh no! You are leaving... Are you sure?</h3>
             <Button onClick={returnHome} className='mb-4 w-100 Auth-Button' size='lg' variant='primary'>Naah, Just Kidding</Button>

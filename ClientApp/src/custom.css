@@ -10,6 +10,27 @@
   border-radius: 5px;
 }
 
+
+.w-80 {
+  width: 80% !important;
+}
+.w-60 {
+  width: 60% !important;
+}
+.w-40 {
+  width: 40% !important;
+}
+.w-20 {
+  width: 20% !important;
+}
+.mw-1k {
+  min-width: 1000px !important;
+}
+.xw-500 {
+  max-width: 500px !important;
+}
+
+
 a {
   color: #0366d6;
 }
@@ -36,6 +57,33 @@ code {
   to {
     transform: translateY(0);
   }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0px);
+  }
+  10% {
+    transform: translateX(30px);
+  }
+  30% {
+    transform: translateX(-30px);
+  }
+  50% {
+    transform: translateX(30px);
+  }
+  70% {
+    transform: translateX(-30px);
+  }
+  90% {
+    transform: translateX(30px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.shake {
+  animation: shake;
 }
 
 .dark-header {
