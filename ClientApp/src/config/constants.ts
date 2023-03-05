@@ -28,3 +28,18 @@ export function convertToFilterList(items: string[]): FilterItem[] {
     }
     return list;
 }
+
+export const categoryOptions = [
+    'React',
+    '.Net',
+    'AWS',
+    'Azure',
+    'Redux',
+    'CSS',
+    'HTML',
+    'tailwind',
+    'SASS',
+    'LESS',
+    'Angular',
+    'NestJs',
+]

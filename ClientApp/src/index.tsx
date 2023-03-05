@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { ToastContainer } from 'react-toastify';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -13,6 +14,7 @@ const root = createRoot(rootElement as HTMLElement);
 root.render(
   <BrowserRouter basename={baseUrl as string | undefined}>
     <App />
+    <ToastContainer />
   </BrowserRouter>);
 
 // If you want your app to work offline and load faster, you can change

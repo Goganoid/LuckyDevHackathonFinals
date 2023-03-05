@@ -42,4 +42,17 @@ public class ProjectsController : ControllerBase
         var result = projectsQuery.Select(p => _mapper.Map<ProjectDTO>(p));
         return Ok(result);
     }
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetProject(int id)
+    {
+        var project = _context.Projects
+            .Include(p => p.Company)
+            .Include(p => p.Vacancies).ThenInclude(v => v.Candidates)
+            .Include(p => p.Vacancies).ThenInclude(v => v.AcceptedCandidate)
+            .Include(p=>p.Vacancies).ThenInclude(v=>v.Tags)
+            .FirstOrDefault(p=>p.Id==id);
+            
+        var result =  _mapper.Map<ProjectDTO>(project);
+        return Ok(result);
+    }
 }
